@@ -1,0 +1,75 @@
+.btm-xsm-red {
+    background-color: tomato;
+    font-size: 80%;
+    border-radius: 20%;
+    color: white;
+}
+.btm-xsm-blue {
+    background-color: dodgerblue;
+    font-size: 80%;
+    border-radius: 20%;
+    color: white;
+}
+.btm-xsm-green {
+    background-color: seagreen;
+    font-size: 80%;
+    border-radius: 20%;
+    color: white;
+}
+
+.bg-nappr {
+    background-color: darksalmon;
+}
+
+.bg-appr {
+    background-color: lightgreen;
+}
+
+td, th {
+    white-space: nowrap;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+header, footer {
+    background: none repeat scroll 0 0 #A6C9E2;
+    color: #2E6E9E;
+    font-size: 20px;
+    padding: 5px 20px;
+    margin: 6px 0;
+}
+
+.profile-tab p{
+    font-weight: 600;
+    color: #0062cc;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bottom-div {
+    position: absolute;
+    bottom: 0;
+}
+
+.pos-relative {
+    position: relative;
+}
+
+.right-top {
+    position: absolute;
+    right: 1%;
+    top: 1%;
+}
+
+.left-center {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+}
