@@ -56,21 +56,22 @@
                     </c:choose>
                 </td>
                 <td>${fn:formatDateTime(user.registered)}</td>
-                <td>
-                    <c:choose>
+                <c:choose>
                     <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
-                        <a class="btn btn-info btn-sm"
-                           href="users/update/${user.id}">
-                            <fmt:message key="app.button.update" bundle="${lang}"/>
-                        </a>
+                        <td>
+                            <a class="btn btn-info btn-sm"
+                               href="users/update/${user.id}">
+                                <fmt:message key="app.button.update" bundle="${lang}"/>
+                            </a>
 
-                        <a class="btn btn-danger btn-sm"
-                           href="${user.id eq sessionScope.userId ? "users" : "users/delete/".concat(user.id)}" >
-                            <fmt:message key="app.button.delete" bundle="${lang}"/>
-                        </a>
+                            <a class="btn btn-danger btn-sm"
+                               href="${user.id eq sessionScope.userId ? "users" : "users/delete/".concat(user.id)}">
+                                <fmt:message key="app.button.delete" bundle="${lang}"/>
+                            </a>
+                        </td>
                     </c:when>
-                    </c:choose>
-                </td>
+                </c:choose>
+
             </tr>
         </c:forEach>
     </table>
