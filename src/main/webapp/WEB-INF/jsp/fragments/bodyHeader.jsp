@@ -44,8 +44,8 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <a href="${pageContext.request.contextPath}/register" class="btn btn-outline-success my-2 my-sm-0">Register</a>
-                <a href="${pageContext.request.contextPath}/login" class="btn btn-link my-2  my-sm-0 mr-3">Login</a>
+                <a href="${pageContext.request.contextPath}/register" class="btn btn-outline-success my-2 my-sm-0"><fmt:message key="app.register" bundle="${lang}"/></a>
+                <a href="${pageContext.request.contextPath}/login" class="btn btn-link my-2  my-sm-0 mr-3"><fmt:message key="app.login" bundle="${lang}"/></a>
             </c:otherwise>
         </c:choose>
         <form class="form-inline my-2 my-sm-0 " action="${currentUrl}">

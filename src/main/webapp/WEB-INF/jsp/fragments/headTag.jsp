@@ -5,8 +5,11 @@
     <c:when test="${ not empty param.language }">
         <c:set var="language" value="${param.language}" scope="request" />
     </c:when>
-    <c:otherwise>
+    <c:when test="${ not empty sessionScope.language }">
         <c:set var="language" value="${sessionScope.language}" scope="request" />
+    </c:when>
+    <c:otherwise>
+        <c:set var="language" value="en" scope="request" />
     </c:otherwise>
 </c:choose>
 <fmt:setLocale value = "${language}" scope="request"/>
