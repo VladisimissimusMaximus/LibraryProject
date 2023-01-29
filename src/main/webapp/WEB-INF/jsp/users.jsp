@@ -24,7 +24,11 @@
             <th scope="col"><fmt:message key="user.email" bundle="${lang}"/></th>
             <th scope="col"><fmt:message key="user.role" bundle="${lang}"/></th>
             <th scope="col"><fmt:message key="user.registered" bundle="${lang}"/></th>
-            <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
+            <c:choose>
+                <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
+                    <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
+                </c:when>
+            </c:choose>
         </tr>
         </thead>
         <c:forEach items="${users}" var="user">
@@ -53,15 +57,19 @@
                 </td>
                 <td>${fn:formatDateTime(user.registered)}</td>
                 <td>
-                    <a class="btn btn-info btn-sm"
-                       href="users/update/${user.id}">
-                        <fmt:message key="app.button.update" bundle="${lang}"/>
-                    </a>
+                    <c:choose>
+                    <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
+                        <a class="btn btn-info btn-sm"
+                           href="users/update/${user.id}">
+                            <fmt:message key="app.button.update" bundle="${lang}"/>
+                        </a>
 
-                    <a class="btn btn-danger btn-sm"
-                       href="${user.id eq sessionScope.userId ? "users" : "users/delete/".concat(user.id)}" >
-                        <fmt:message key="app.button.delete" bundle="${lang}"/>
-                    </a>
+                        <a class="btn btn-danger btn-sm"
+                           href="${user.id eq sessionScope.userId ? "users" : "users/delete/".concat(user.id)}" >
+                            <fmt:message key="app.button.delete" bundle="${lang}"/>
+                        </a>
+                    </c:when>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>

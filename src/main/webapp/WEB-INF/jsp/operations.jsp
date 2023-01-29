@@ -100,9 +100,9 @@
                         <td>${fn:calculateDebt(operation.startDate, operation.duration)}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${ADMINISTRATOR == SESSION_ROLE || LIBRARIAN == SESSION_ROLE }">
+                                <c:when test="${(ADMINISTRATOR == SESSION_ROLE || LIBRARIAN == SESSION_ROLE) && operation.status == ORDER}">
                                     <a class="btn btn-success btn-sm"
-                                       href="catalogue/unsubscribe/${book.id}">
+                                       href="catalogue/operation/approve?userId=${operation.user.id}&bookId=${operation.book.id}">
                                         <fmt:message key="app.button.finish" bundle="${lang}"/>
                                     </a>
                                 </c:when>

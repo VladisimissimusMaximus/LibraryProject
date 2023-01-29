@@ -81,11 +81,6 @@
             </div>
         </div>
     </div>
-    <div class="container d-flex text-center">
-        <a class="btn btn-info btn-sm mr-3" href="profile/activities"><fmt:message key="myactivities"
-                                                         bundle="${lang}"/></a>
-
-    </div>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>

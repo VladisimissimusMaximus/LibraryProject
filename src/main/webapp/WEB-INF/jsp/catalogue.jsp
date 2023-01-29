@@ -83,7 +83,11 @@
                     <th scope="col"><fmt:message key="book.publisher" bundle="${lang}"/></th>
                     <th scope="col"><fmt:message key="book.publicationDate" bundle="${lang}"/></th>
                     <th scope="col"><fmt:message key="book.count" bundle="${lang}"/></th>
-                    <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
+                    <c:choose>
+                        <c:when test="${LIBRARIAN != SESSION_ROLE}">
+                            <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
+                        </c:when>
+                    </c:choose>
                 </tr>
                 </thead>
                 <c:forEach items="${books}" var="book">

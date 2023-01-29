@@ -17,6 +17,7 @@
 <c:set var="READER" value="READER" scope="request"/>
 <c:set var="ADMINISTRATOR" value="ADMINISTRATOR" scope="request"/>
 <c:set var="LIBRARIAN" value="LIBRARIAN" scope="request"/>
+<c:set var="ORDER" value="ORDER" scope="request"/>
 <c:set var="SESSION_ROLE" value="${sessionScope.userRole}" scope="session"/>
 
 <head>
