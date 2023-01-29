@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    private static final String NAME_COL = "name";
-    private static final String PASSWORD_COL = "password";
-    private static final String ID_COL = "id";
-    private static final String ENABLED_COL = "enabled";
-    private static final String REGISTERED_COL = "registered";
-    private static final String ROLE_ID_COL = "role_id";
-    private static final String EMAIL_COL = "email";
+    public static final String NAME_COL = "name";
+    public static final String PASSWORD_COL = "password";
+    public static final String ID_COL = "id";
+    public static final String ENABLED_COL = "enabled";
+    public static final String REGISTERED_COL = "registered";
+    public static final String ROLE_ID_COL = "role_id";
+    public static final String EMAIL_COL = "email";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
 

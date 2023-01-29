@@ -10,9 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class OperationService {
     private static final Logger logger = LoggerFactory.getLogger(OperationService.class);
+    public static final Integer DEFAULT_SUBSCRIPTION_COST_DOLLARS = 10;
     private static final OperationDAO dao = new OperationDAO();
 
     private static final Integer MINIMUM_DURATION_DAYS = 1;
@@ -73,6 +75,12 @@ public class OperationService {
         operation.setUser(user);
 
         dao.delete(operation);
+    }
+
+    public List<Operation> getAll() {
+        logger.info("looking for all operations");
+
+        return dao.findAll();
     }
 
 }

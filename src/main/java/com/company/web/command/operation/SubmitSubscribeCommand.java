@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.company.service.OperationService.DEFAULT_SUBSCRIPTION_COST_DOLLARS;
+
 public class SubmitSubscribeCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(SubmitSubscribeCommand.class);
     private static final OperationService service = new OperationService();
-    private static final Integer DEFAULT_SUBSCRIPTION_COST_DOLLARS = 10;
     private Integer bookId;
     private Integer userId;
 

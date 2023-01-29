@@ -4,6 +4,7 @@ import com.company.web.command.Command;
 import com.company.web.command.ShowHomeCommand;
 import com.company.web.command.book.DeleteBookCommand;
 import com.company.web.command.operation.ReadCommand;
+import com.company.web.command.operation.ShowOperationsCommand;
 import com.company.web.command.operation.ShowSubscribeCommand;
 import com.company.web.command.operation.SubmitSubscribeCommand;
 import com.company.web.command.user.*;
@@ -42,7 +43,8 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.DELETE_USER, HttpMethod.GET), DeleteUserCommand::new),
             Map.entry(new Endpoint(Uri.READ, HttpMethod.GET), ReadCommand::new),
             Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.GET), ShowSubscribeCommand::new),
-            Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.POST), SubmitSubscribeCommand::new)
+            Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.POST), SubmitSubscribeCommand::new),
+            Map.entry(new Endpoint(Uri.OPERATION, HttpMethod.GET), ShowOperationsCommand::new)
     );
 
     @Override

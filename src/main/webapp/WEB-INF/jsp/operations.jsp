@@ -11,7 +11,7 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="container mt-3 ml-3">
-    <p class="h3 mb-4 text-center"><fmt:message key="book.catalogue" bundle="${lang}"/></p>
+    <p class="h3 mb-4 text-center"><fmt:message key="operation.title" bundle="${lang}"/></p>
     <form class="d-flex justify-content-between">
 
         <div class="container nowrap">
@@ -74,46 +74,42 @@
     </c:choose>
 
     <c:choose>
-        <c:when test="${not empty books}">
+        <c:when test="${not empty operations}">
             <table class="table" aria-describedby="activities-table">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col"><fmt:message key="book.title" bundle="${lang}"/></th>
                     <th scope="col"><fmt:message key="book.author" bundle="${lang}"/></th>
-                    <th scope="col"><fmt:message key="book.publisher" bundle="${lang}"/></th>
-                    <th scope="col"><fmt:message key="book.publicationDate" bundle="${lang}"/></th>
-                    <th scope="col"><fmt:message key="book.count" bundle="${lang}"/></th>
+                    <th scope="col"><fmt:message key="operation.reader" bundle="${lang}"/></th>
+                    <th scope="col"><fmt:message key="operation.status" bundle="${lang}"/></th>
+                    <th scope="col"><fmt:message key="operation.startDate" bundle="${lang}"/></th>
+                    <th scope="col"><fmt:message key="operation.endDate" bundle="${lang}"/></th>
+                    <th scope="col"><fmt:message key="operation.debt" bundle="${lang}"/></th>
                     <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
                 </tr>
                 </thead>
-                <c:forEach items="${books}" var="book">
-                    <jsp:useBean id="book" type="com.company.model.Book"/>
+                <c:forEach items="${operations}" var="operation">
+                    <jsp:useBean id="operation" type="com.company.model.Operation"/>
                     <tr>
-                        <td><c:out value="${book.name}"/></td>
-                        <td><c:out value="${book.author}"/></td>
-                        <td><c:out value="${book.publisher}"/></td>
-                        <td>${fn:formatDate(book.publicationDate)}</td>
-                        <td>${book.count}</td>
+                        <td><c:out value="${operation.book.name}"/></td>
+                        <td><c:out value="${operation.book.author}"/></td>
+                        <td><c:out value="${operation.user.email}"/></td>
+                        <td><c:out value="${operation.status}"/></td>
+                        <td>${fn:formatDateTime(operation.startDate)}</td>
+                        <td>${fn:appendDays(operation.startDate, operation.duration)}</td>
+                        <td>${fn:calculateDebt(operation.startDate, operation.duration)}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
-                                    <a class="btn btn-info btn-sm"
-                                       href="catalogue/update/${book.id}">
-                                        <fmt:message key="app.button.update" bundle="${lang}"/>
-                                    </a>
-                                    <a class="btn btn-danger btn-sm"
-                                       href="catalogue/delete/${book.id}">
-                                        <fmt:message key="app.button.delete" bundle="${lang}"/>
+                                <c:when test="${ADMINISTRATOR == SESSION_ROLE || LIBRARIAN == SESSION_ROLE }">
+                                    <a class="btn btn-success btn-sm"
+                                       href="catalogue/unsubscribe/${book.id}">
+                                        <fmt:message key="app.button.finish" bundle="${lang}"/>
                                     </a>
                                 </c:when>
                                 <c:when test="${READER == SESSION_ROLE}">
                                     <a class="btn btn-success btn-sm"
-                                       href="catalogue/subscribe/${book.id}">
-                                        <fmt:message key="app.button.subscribe" bundle="${lang}"/>
-                                    </a>
-                                    <a class="btn btn-info btn-sm"
-                                       href="catalogue/read/${book.id}">
-                                        <fmt:message key="app.button.read" bundle="${lang}"/>
+                                       href="catalogue/unsubscribe/${book.id}">
+                                        <fmt:message key="app.button.payAndUnsubscribe" bundle="${lang}"/>
                                     </a>
                                 </c:when>
                             </c:choose>
@@ -124,15 +120,6 @@
             </table>
 
             <div class="container d-flex justify-content-between">
-                <c:choose>
-                    <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
-                        <form action="catalogue" method="POST" class="d-inline">
-                            <input class="btn btn-success btn-sm" type="submit"
-                                   value="<fmt:message key="app.button.create" bundle="${lang}"/>"/>
-                        </form>
-                    </c:when>
-                </c:choose>
-
                 <div class="container text-center">
                     <c:if test="${currentPage > 1}">
                         <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}"><--</a>

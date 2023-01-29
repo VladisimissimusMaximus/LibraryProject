@@ -16,12 +16,63 @@ public class OperationDAO {
     private static final String USER_ID_COL = "user_id";
     private static final String BOOK_ID_COL = "book_id";
     private static final String START_DATE_COL = "start_date";
-    private static final String TYPE_COL = "type";
-    private static final String DURATION_COL = "duration";
+    private static final String STATUS_COL = "status";
+    private static final String DURATION_COL = "duration_days";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
 
-    public List<Operation> getByUserId(int userId) {
+    public List<Operation> findAll() {
+        LOGGER.info("finding all operations");
+
+        List<Operation> result = new ArrayList<>();
+        String query = "SELECT user_id, users.email, book_id, books.name, books.author, start_date, duration_days, status " +
+                "FROM book_operations " +
+                "INNER JOIN users ON book_operations.user_id = users.id " +
+                "INNER JOIN books ON book_operations.book_id = books.id ";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int bookId = rs.getInt(BOOK_ID_COL);
+                String bookName = rs.getString(BookDAO.NAME_COL);
+                String bookAuthor = rs.getString(BookDAO.AUTHOR_COL);
+                int userId = rs.getInt(USER_ID_COL);
+                String email = rs.getString(UserDAO.EMAIL_COL);
+                LocalDateTime startDate = rs.getTimestamp(START_DATE_COL).toLocalDateTime();
+                OperationStatus status = OperationStatus.valueOf(rs.getString(STATUS_COL));
+                int duration = rs.getInt(DURATION_COL);
+
+                Operation operation = new Operation();
+                Book book = new Book();
+                book.setId(bookId);
+                book.setName(bookName);
+                book.setAuthor(bookAuthor);
+                operation.setBook(book);
+
+                User user = new User();
+                user.setId(userId);
+                user.setEmail(email);
+                operation.setUser(user);
+
+                operation.setStartDate(startDate);
+                operation.setStatus(status);
+                operation.setDuration(duration);
+
+                result.add(operation);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.warn("Failed to find all operations, cause: {}", e.getMessage());
+            throw new DAOException("Failed to find all operations", e);
+        }
+
+        return result;
+    }
+
+
+    public List<Operation> findUserId(int userId) {
         LOGGER.info("finding operations with userId {}", userId);
 
         List<Operation> result = new ArrayList<>();
@@ -38,8 +89,8 @@ public class OperationDAO {
             while (rs.next()) {
                 int bookId = rs.getInt(BOOK_ID_COL);
                 LocalDateTime startDate = rs.getTimestamp(START_DATE_COL).toLocalDateTime();
-                OperationStatus type = OperationStatus.valueOf(rs.getString(TYPE_COL));
-                int duration = rs.getInt(TYPE_COL);
+                OperationStatus status = OperationStatus.valueOf(rs.getString(STATUS_COL));
+                int duration = rs.getInt(DURATION_COL);
 
                 Operation operation = new Operation();
                 operation.setUser(user);
@@ -49,7 +100,7 @@ public class OperationDAO {
                 operation.setBook(book);
 
                 operation.setStartDate(startDate);
-                operation.setStatus(type);
+                operation.setStatus(status);
                 operation.setDuration(duration);
 
                 result.add(operation);
@@ -63,7 +114,7 @@ public class OperationDAO {
         return result;
     }
 
-    public List<Operation> getByBookId(int bookId) {
+    public List<Operation> findByBookId(int bookId) {
         LOGGER.info("finding operations with bookId {}", bookId);
 
         String query = "SELECT * FROM book_operations " +
@@ -80,8 +131,8 @@ public class OperationDAO {
             while (rs.next()) {
                 int userId = rs.getInt(USER_ID_COL);
                 LocalDateTime startDate = rs.getTimestamp(START_DATE_COL).toLocalDateTime();
-                OperationStatus type = OperationStatus.valueOf(rs.getString(TYPE_COL));
-                int duration = rs.getInt(TYPE_COL);
+                OperationStatus status = OperationStatus.valueOf(rs.getString(STATUS_COL));
+                int duration = rs.getInt(DURATION_COL);
 
                 Operation operation = new Operation();
                 operation.setBook(book);
@@ -91,7 +142,7 @@ public class OperationDAO {
                 operation.setUser(user);
 
                 operation.setStartDate(startDate);
-                operation.setStatus(type);
+                operation.setStatus(status);
                 operation.setDuration(duration);
 
                 result.add(operation);
@@ -125,15 +176,15 @@ public class OperationDAO {
 
             while (rs.next()) {
                 LocalDateTime startDate = rs.getTimestamp(START_DATE_COL).toLocalDateTime();
-                OperationStatus type = OperationStatus.valueOf(rs.getString(TYPE_COL));
-                int duration = rs.getInt(TYPE_COL);
+                OperationStatus status = OperationStatus.valueOf(rs.getString(STATUS_COL));
+                int duration = rs.getInt(DURATION_COL);
 
                 Operation operation = new Operation();
                 operation.setUser(user);
                 operation.setBook(book);
 
                 operation.setStartDate(startDate);
-                operation.setStatus(type);
+                operation.setStatus(status);
                 operation.setDuration(duration);
 
                 result.add(operation);

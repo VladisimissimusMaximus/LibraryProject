@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDAO {
-    private static final String NAME_COL = "name";
-    private static final String AUTHOR_COL = "author";
-    private static final String PUBLISHER_COL = "publisher";
-    private static final String ID_COL = "id";
-    private static final String PUBLICATION_DATE_COL = "publication_date";
-    private static final String COUNT_COL = "count";
+    public static final String NAME_COL = "name";
+    public static final String AUTHOR_COL = "author";
+    public static final String PUBLISHER_COL = "publisher";
+    public static final String ID_COL = "id";
+    public static final String PUBLICATION_DATE_COL = "publication_date";
+    public static final String COUNT_COL = "count";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
 

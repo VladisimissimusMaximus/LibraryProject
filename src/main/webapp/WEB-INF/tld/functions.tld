@@ -20,4 +20,16 @@
         <function-signature>java.lang.String toString(java.time.LocalDate)</function-signature>
     </function>
 
+    <function>
+        <name>appendDays</name>
+        <function-class>com.company.util.DateTimeUtil</function-class>
+        <function-signature>java.lang.String appendWithDays(java.time.LocalDateTime,java.lang.Integer)</function-signature>
+    </function>
+
+    <function>
+        <name>calculateDebt</name>
+        <function-class>com.company.util.DateTimeUtil</function-class>
+        <function-signature>long calculateDebt(java.time.LocalDateTime,java.lang.Integer)</function-signature>
+    </function>
+
 </taglib>

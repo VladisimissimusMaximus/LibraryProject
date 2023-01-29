@@ -9,7 +9,8 @@ public enum View implements Resource{
     UPDATE_USER("/WEB-INF/jsp/updateUser.jsp"),
     PROFILE("/WEB-INF/jsp/profile.jsp"),
     CATALOGUE("/WEB-INF/jsp/catalogue.jsp"),
-    SUBSCRIBE("/WEB-INF/jsp/subscribe.jsp");
+    SUBSCRIBE("/WEB-INF/jsp/subscribe.jsp"),
+    OPERATIONS("/WEB-INF/jsp/operations.jsp");
 
     private final String path;
 
