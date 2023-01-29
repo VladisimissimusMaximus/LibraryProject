@@ -153,7 +153,7 @@ public class OperationDAO {
         Connection con = ConnectionManager.getConnection();
         String insertOperation = "INSERT INTO book_operations (user_id, book_id, status, duration_days) " +
                 "VALUES (?, ?, ?, ?)";
-        String updateBookAvailable = "UPDATE books SET count = count - 1 WHERE id = ?";
+        String updateBookAvailable = "UPDATE books SET count = count - 1 WHERE id = ? AND count > 0";
 
         try (
                 PreparedStatement insert = con.prepareStatement(insertOperation);
@@ -191,7 +191,7 @@ public class OperationDAO {
         boolean successful = false;
         String deleteOperation = "DELETE FROM book_operations " +
                 "WHERE book_operations.book_id = ? AND book_operations.user_id = ?";
-        String updateBookAvailable = "UPDATE books SET available = available + 1 WHERE id = ?";
+        String updateBookAvailable = "UPDATE books SET count = count + 1 WHERE id = ?";
         try (
              PreparedStatement delete = con.prepareStatement(deleteOperation);
              PreparedStatement update = con.prepareStatement(updateBookAvailable);

@@ -9,6 +9,8 @@ import com.company.util.OperationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
+
 public class OperationService {
     private static final Logger logger = LoggerFactory.getLogger(OperationService.class);
     private static final OperationDAO dao = new OperationDAO();
@@ -41,6 +43,7 @@ public class OperationService {
         operation.setUser(user);
 
         operation.setStatus(OperationStatus.SUBSCRIPTION);
+        operation.setStartDate(LocalDateTime.now());
 
         dao.update(operation);
     }
@@ -61,18 +64,13 @@ public class OperationService {
         dao.insertOperation(operation);
     }
 
-    public void cancel(User user, Book book) {
-        logger.info("cancelling operation on book {} for user {}", user.getId(), book.getId());
-
-        int duration = MINIMUM_DURATION_DAYS;
+    public void finish(User user, Book book) {
+        logger.info("finishing operation on book {} for user {}", user.getId(), book.getId());
 
         Operation operation = new Operation();
 
         operation.setBook(book);
         operation.setUser(user);
-
-        operation.setStatus(OperationStatus.READING_ROOM);
-        operation.setDuration(duration);
 
         dao.delete(operation);
     }
