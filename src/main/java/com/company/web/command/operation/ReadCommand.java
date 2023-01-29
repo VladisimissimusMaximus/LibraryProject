@@ -30,7 +30,7 @@ public class ReadCommand extends AbstractCommand {
 
     @Override
     public void process() throws ServletException, IOException {
-        logger.info("start place a subscription order on book {} for user {}", userId, bookId);
+        logger.info("start place a subscription order on book {} for user {}", bookId, userId);
 
         User user = new User();
         user.setId(userId);

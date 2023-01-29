@@ -166,9 +166,14 @@ public class OperationDAO {
             insert.setInt(4, operation.getDuration());
             successful = insert.executeUpdate() > 0;
 
+            LOGGER.info("successful inside insertOperation/try =  `{}`", successful);
+
             update.setInt(1, operation.getBook().getId());
             successful = successful && update.executeUpdate() > 0;
-            con.commit();
+            if (successful) {
+                con.commit();
+            }
+            con.rollback();
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to insert operation `{}`, cause: {}", operation, e.getMessage());
@@ -180,8 +185,16 @@ public class OperationDAO {
                 }
             }
             throw new DAOException("Failed to insert operation", e);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    //do nothing
+                }
+            }
         }
-
+        LOGGER.info("successful inside insertOperation/return =  `{}`", successful);
         return successful;
     }
 
@@ -193,8 +206,8 @@ public class OperationDAO {
                 "WHERE book_operations.book_id = ? AND book_operations.user_id = ?";
         String updateBookAvailable = "UPDATE books SET count = count + 1 WHERE id = ?";
         try (
-             PreparedStatement delete = con.prepareStatement(deleteOperation);
-             PreparedStatement update = con.prepareStatement(updateBookAvailable);
+                PreparedStatement delete = con.prepareStatement(deleteOperation);
+                PreparedStatement update = con.prepareStatement(updateBookAvailable);
         ) {
             con.setAutoCommit(false);
 
