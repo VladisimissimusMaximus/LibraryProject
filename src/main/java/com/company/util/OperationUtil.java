@@ -12,8 +12,9 @@ public class OperationUtil {
         if (duration == null) {
             throw OperationValidationException.withDurationValidationCode("validation.NotEmpty");
         }
-        if (duration.matches(INTEGER_REGEX)) {
-            throw OperationValidationException.withDurationValidationCode("validation.valid");
+        System.out.println(duration);
+        if (!duration.matches(INTEGER_REGEX)) {
+            throw OperationValidationException.withDurationValidationCode("validation.number.valid");
         }
         int durationInt = Integer.parseInt(duration);
         if (durationInt < 1) {

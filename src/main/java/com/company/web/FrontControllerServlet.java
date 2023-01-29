@@ -4,6 +4,8 @@ import com.company.web.command.Command;
 import com.company.web.command.ShowHomeCommand;
 import com.company.web.command.book.DeleteBookCommand;
 import com.company.web.command.operation.ReadCommand;
+import com.company.web.command.operation.ShowSubscribeCommand;
+import com.company.web.command.operation.SubmitSubscribeCommand;
 import com.company.web.command.user.*;
 import com.company.web.command.book.ShowCatalogueCommand;
 import org.slf4j.Logger;
@@ -38,7 +40,9 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.UPDATE_USER, HttpMethod.POST), SubmitUserUpdateCommand::new),
             Map.entry(new Endpoint(Uri.USERS, HttpMethod.GET), ShowUsersCommand::new),
             Map.entry(new Endpoint(Uri.DELETE_USER, HttpMethod.GET), DeleteUserCommand::new),
-            Map.entry(new Endpoint(Uri.READ, HttpMethod.GET), ReadCommand::new)
+            Map.entry(new Endpoint(Uri.READ, HttpMethod.GET), ReadCommand::new),
+            Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.GET), ShowSubscribeCommand::new),
+            Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.POST), SubmitSubscribeCommand::new)
     );
 
     @Override

@@ -18,7 +18,7 @@ public class OperationService {
     private static final Integer MINIMUM_DURATION_DAYS = 1;
 
     public void placeOrder(User user, Book book, String durationParam) {
-        logger.info("placing order on book {} for user {}", user.getId(), book.getId());
+        logger.info("placing order on book {} for user {}", book.getId(), user.getId());
 
         OperationUtil.validateDuration(durationParam);
         int duration = Integer.parseInt(durationParam);
@@ -35,7 +35,7 @@ public class OperationService {
     }
 
     public void approveOrder(User user, Book book) {
-        logger.info("approving order on book {} for user {}", user.getId(), book.getId());
+        logger.info("approving order on book {} for user {}", book.getId(), user.getId());
 
         Operation operation = new Operation();
 
@@ -49,7 +49,7 @@ public class OperationService {
     }
 
     public void takeToReadingRoom(User user, Book book) {
-        logger.info("taking to reading room book {} by user {}", user.getId(), book.getId());
+        logger.info("taking to reading room book {} by user {}", book.getId(), user.getId());
 
         int duration = MINIMUM_DURATION_DAYS;
 
@@ -65,7 +65,7 @@ public class OperationService {
     }
 
     public void finish(User user, Book book) {
-        logger.info("finishing operation on book {} for user {}", user.getId(), book.getId());
+        logger.info("finishing operation on book {} for user {}", book.getId(), user.getId());
 
         Operation operation = new Operation();
 

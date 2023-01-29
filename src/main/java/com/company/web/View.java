@@ -8,7 +8,8 @@ public enum View implements Resource{
     ERROR("/WEB-INF/jsp/error/error.jsp"),
     UPDATE_USER("/WEB-INF/jsp/updateUser.jsp"),
     PROFILE("/WEB-INF/jsp/profile.jsp"),
-    CATALOGUE("/WEB-INF/jsp/catalogue.jsp");
+    CATALOGUE("/WEB-INF/jsp/catalogue.jsp"),
+    SUBSCRIBE("/WEB-INF/jsp/subscribe.jsp");
 
     private final String path;
 

@@ -1,7 +1,7 @@
 package com.company.util;
 
 public class ValidationUtil {
-    public static final String INTEGER_REGEX = "[-]?\\d+";
+    public static final String INTEGER_REGEX = "^[-]?\\d+$";
 
     static boolean isEmpty(String string){
         return string == null || "".equals(string.trim());

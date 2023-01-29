@@ -1,11 +1,12 @@
 package com.company.web.command.operation;
 
 import com.company.model.Book;
-import com.company.model.Operation;
 import com.company.model.User;
 import com.company.service.OperationService;
 import com.company.util.WebUtil;
 import com.company.util.exceptions.OperationValidationException;
+import com.company.web.Uri;
+import com.company.web.View;
 import com.company.web.command.AbstractCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SubscribeCommand extends AbstractCommand {
-    public static final Logger logger = LoggerFactory.getLogger(SubscribeCommand.class);
+public class SubmitSubscribeCommand extends AbstractCommand {
+    public static final Logger logger = LoggerFactory.getLogger(SubmitSubscribeCommand.class);
     private static final OperationService service = new OperationService();
+    private static final Integer DEFAULT_SUBSCRIPTION_COST_DOLLARS = 10;
     private Integer bookId;
     private Integer userId;
 
@@ -42,11 +44,13 @@ public class SubscribeCommand extends AbstractCommand {
 
         try {
             service.placeOrder(user, book, durationParam);
-            // TODO redirect
+            resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()));
         } catch(OperationValidationException validationException) {
+//            logger.info("exception caught {} with code {}", validationException, validationException.getDurationValidation());
             req.setAttribute("duration", durationParam);
-            req.setAttribute("operationValidation", validationException.getDurationValidation());
-            // TODO redirect
+            req.setAttribute("cost", DEFAULT_SUBSCRIPTION_COST_DOLLARS);
+            req.setAttribute("durationValidation", validationException.getDurationValidation());
+            WebUtil.forward(req, resp, View.SUBSCRIBE);
         }
 
     }
