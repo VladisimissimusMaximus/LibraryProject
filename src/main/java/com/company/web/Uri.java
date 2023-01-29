@@ -16,9 +16,10 @@ public enum Uri implements Resource {
     PROFILE("profile"),
     CATALOGUE("catalogue"),
     DELETE_BOOK("catalogue/delete/%d"),
-    READ("catalogue/read/%d"),
-    SUBSCRIBE("catalogue/subscribe/%d"),
-    OPERATION("catalogue/operation");
+    OPERATION("catalogue/operation"),
+    READ("catalogue/operation/read/%d"),
+    SUBSCRIBE("catalogue/operation/subscribe/%d"),
+    APPROVE("catalogue/operation/approve");
 
     private final String path;
 

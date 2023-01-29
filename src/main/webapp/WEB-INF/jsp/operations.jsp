@@ -98,14 +98,14 @@
                         <td>${fn:formatDateTime(operation.startDate)}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${operation.status.name() == SUBSCRIBTION}">
+                                <c:when test="${operation.status.name() == SUBSCRIPTION}">
                                     ${fn:appendDays(operation.startDate, operation.duration)}
                                 </c:when>
                             </c:choose>
                         </td>
                         <td>
                                 <c:choose>
-                                    <c:when test="${operation.status.name() == SUBSCRIBTION}">
+                                    <c:when test="${operation.status.name() == SUBSCRIPTION}">
                                         ${fn:calculateDebt(operation.startDate, operation.duration)}
                                     </c:when>
                                     <c:otherwise>
@@ -117,19 +117,19 @@
                             <c:choose>
                                 <c:when test="${(ADMINISTRATOR == SESSION_ROLE || LIBRARIAN == SESSION_ROLE) && operation.status.name() == ORDER}">
                                     <a class="btn btn-success btn-sm"
-                                       href="catalogue/operation/approve?userId=${operation.user.id}&bookId=${operation.book.id}">
+                                       href="operation/approve?userId=${operation.user.id}&bookId=${operation.book.id}">
                                         <fmt:message key="app.button.approve" bundle="${lang}"/>
                                     </a>
                                 </c:when>
                                 <c:when test="${READER == SESSION_ROLE && operation.status.name() == SUBSCRIPTION}">
                                     <a class="btn btn-success btn-sm"
-                                       href="catalogue/operation/unsubscribe/${book.id}">
+                                       href="operation/unsubscribe/${book.id}">
                                         <fmt:message key="app.button.payAndUnsubscribe" bundle="${lang}"/>
                                     </a>
                                 </c:when>
                                 <c:when test="${READER == SESSION_ROLE && operation.status.name() == READING_ROOM}">
                                     <a class="btn btn-success btn-sm"
-                                       href="catalogue/operation/return/${book.id}">
+                                       href="operation/return/${book.id}">
                                         <fmt:message key="app.button.return" bundle="${lang}"/>
                                     </a>
                                 </c:when>
