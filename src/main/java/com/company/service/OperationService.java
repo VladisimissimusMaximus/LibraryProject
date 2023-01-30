@@ -66,8 +66,8 @@ public class OperationService {
         dao.insertOperation(operation);
     }
 
-    public void finish(User user, Book book) {
-        logger.info("finishing operation on book {} for user {}", book.getId(), user.getId());
+    public void returnBook(User user, Book book) {
+        logger.info("returning book {} for user {}", book.getId(), user.getId());
 
         Operation operation = new Operation();
 
@@ -81,6 +81,12 @@ public class OperationService {
         logger.info("looking for all operations");
 
         return dao.findAll();
+    }
+
+    public List<Operation> getAllByUser(Integer userId) {
+        logger.info("looking for all operations");
+
+        return dao.findByUserId(userId);
     }
 
 }

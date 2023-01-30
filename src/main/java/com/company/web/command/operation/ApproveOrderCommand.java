@@ -3,7 +3,6 @@ package com.company.web.command.operation;
 import com.company.model.Book;
 import com.company.model.User;
 import com.company.service.OperationService;
-import com.company.util.WebUtil;
 import com.company.web.Uri;
 import com.company.web.command.AbstractCommand;
 import org.slf4j.Logger;
@@ -38,6 +37,6 @@ public class ApproveOrderCommand extends AbstractCommand {
         book.setId(bookId);
 
         service.approveOrder(user, book);
-        resp.sendRedirect(Uri.OPERATION.toAbsolutePath(req.getContextPath()));
+        resp.sendRedirect(Uri.OPERATIONS.toAbsolutePath(req.getContextPath()));
     }
 }

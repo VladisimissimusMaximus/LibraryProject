@@ -42,7 +42,11 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.GET), ShowSubscribeCommand::new),
             Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.POST), SubmitSubscribeCommand::new),
             Map.entry(new Endpoint(Uri.APPROVE, HttpMethod.GET), ApproveOrderCommand::new),
-            Map.entry(new Endpoint(Uri.OPERATION, HttpMethod.GET), ShowOperationsCommand::new)
+            Map.entry(new Endpoint(Uri.OPERATIONS, HttpMethod.GET), ShowOperationsCommand::new),
+            Map.entry(new Endpoint(Uri.MY_OPERATIONS, HttpMethod.GET), ShowMyOperationsCommand::new),
+            Map.entry(new Endpoint(Uri.RETURN_BOOK, HttpMethod.GET), ReturnBookCommand::new),
+            Map.entry(new Endpoint(Uri.CANCEL_ORDER, HttpMethod.GET), ReturnBookCommand::new),
+            Map.entry(new Endpoint(Uri.UNSUBSCRIBE, HttpMethod.GET), ReturnBookCommand::new)
     );
 
     @Override

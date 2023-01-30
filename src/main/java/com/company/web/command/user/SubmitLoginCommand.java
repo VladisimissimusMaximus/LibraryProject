@@ -4,6 +4,7 @@ import com.company.model.User;
 import com.company.service.UserService;
 import com.company.util.UserUtil;
 import com.company.util.WebUtil;
+import com.company.web.Uri;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
 import com.company.web.FrontControllerServlet;
@@ -27,7 +28,7 @@ public class SubmitLoginCommand extends AbstractCommand {
         if (UserUtil.checkPasswordsEquals(password, user.getPassword())) {
                 renewUserSession(req, user);
             //   resp.sendRedirect(Uri.HOME.getPath());
-            WebUtil.forward(req, resp, View.HOME);
+            resp.sendRedirect(Uri.HOME.toAbsolutePath(req.getContextPath()));
         } else {
             logger.info("wrong passwords: user password is " + user.getPassword() + " and provided " + password);
             //throw new NotFoundException();

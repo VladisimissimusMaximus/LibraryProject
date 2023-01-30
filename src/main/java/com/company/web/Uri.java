@@ -16,10 +16,14 @@ public enum Uri implements Resource {
     PROFILE("profile"),
     CATALOGUE("catalogue"),
     DELETE_BOOK("catalogue/delete/%d"),
-    OPERATION("catalogue/operation"),
+    OPERATIONS("catalogue/operation"),
     READ("catalogue/operation/read/%d"),
     SUBSCRIBE("catalogue/operation/subscribe/%d"),
-    APPROVE("catalogue/operation/approve");
+    APPROVE("catalogue/operation/approve"),
+    MY_OPERATIONS("profile/operation"),
+    RETURN_BOOK("profile/operation/return/%d"),
+    CANCEL_ORDER("profile/operation/cancel/%d"),
+    UNSUBSCRIBE("profile/operation/unsub/%d");
 
     private final String path;
 
