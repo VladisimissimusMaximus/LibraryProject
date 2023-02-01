@@ -42,7 +42,7 @@ public class SubmitUpdateBookCommand extends AbstractCommand {
 
         try {
             service.update(book);
-            resp.sendRedirect(Uri.UPDATE_BOOK.toAbsolutePath(req.getContextPath()));
+            resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()));
 
         } catch (BookValidationException e) {
             LOGGER.debug("message: error occurred updating book {} cause {}", bookId, e.getCause());
@@ -51,7 +51,9 @@ public class SubmitUpdateBookCommand extends AbstractCommand {
             req.setAttribute("authorValidation", e.getAuthorValidation());
             req.setAttribute("publisherValidation", e.getPublisherValidation());
             req.setAttribute("publicationDateValidation", e.getPublicationDateValidation());
-            WebUtil.forward(req, resp, View.UPDATE_USER);
+            req.setAttribute("countValidation", e.getCountValidation());
+            req.setAttribute("action", "update");
+            WebUtil.forward(req, resp, View.SUBMIT_BOOK);
         }
 
     }

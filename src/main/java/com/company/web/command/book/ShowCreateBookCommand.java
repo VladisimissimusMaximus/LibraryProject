@@ -1,7 +1,6 @@
 package com.company.web.command.book;
 
 import com.company.util.WebUtil;
-import com.company.web.FrontControllerServlet;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ public class ShowCreateBookCommand extends AbstractCommand {
     @Override
     public void process() throws ServletException, IOException {
         logger.info("Starting show create book");
-        WebUtil.forward(req, resp, View.CREATE_BOOK);
+        req.setAttribute("action", "create");
+        WebUtil.forward(req, resp, View.SUBMIT_BOOK);
     }
 }

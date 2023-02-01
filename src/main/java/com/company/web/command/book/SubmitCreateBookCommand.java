@@ -1,6 +1,5 @@
 package com.company.web.command.book;
 
-import com.company.dao.BookDAO;
 import com.company.model.Book;
 import com.company.service.BookService;
 import com.company.util.WebUtil;
@@ -23,16 +22,16 @@ public class SubmitCreateBookCommand extends AbstractCommand {
     @Override
     public void process() throws ServletException, IOException {
         Book book = new Book();
-        book.setId(Integer.parseInt(req.getParameter("id")));
+        book.setCount(Integer.parseInt(req.getParameter("count")));
         book.setName(req.getParameter("name"));
         book.setAuthor(req.getParameter("author"));
         book.setPublisher(req.getParameter("publisher"));
-        book.setPublicationDate(LocalDate.parse(req.getParameter("publication_date")));
+        book.setPublicationDate(LocalDate.parse(req.getParameter("publicationDate")));
 
 
         try {
             service.create(book);
-            resp.sendRedirect(Uri.CREATE_BOOK.getPath());
+            resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()));
 
         } catch (BookValidationException e) {
             logger.debug("message: error occurred while creating book {} cause {}", e, e.getCause());
@@ -41,7 +40,9 @@ public class SubmitCreateBookCommand extends AbstractCommand {
             req.setAttribute("nameValidation", e.getNameValidation());
             req.setAttribute("publisherValidation", e.getPublisherValidation());
             req.setAttribute("publicationDateValidation", e.getPublicationDateValidation());
-            WebUtil.forward(req, resp, View.CREATE_BOOK);
+            req.setAttribute("countValidation", e.getCountValidation());
+            req.setAttribute("action", "create");
+            WebUtil.forward(req, resp, View.SUBMIT_BOOK);
         }
 
 

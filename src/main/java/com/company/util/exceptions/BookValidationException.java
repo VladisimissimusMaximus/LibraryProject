@@ -6,6 +6,7 @@ public class BookValidationException extends RuntimeException {
     private String authorValidation;
     private String publisherValidation;
     private String publicationDateValidation;
+    private String countValidation;
 
     public BookValidationException() {
         authorValidation = nameValidation = publisherValidation = publicationDateValidation = "";
@@ -18,6 +19,14 @@ public class BookValidationException extends RuntimeException {
     public static BookValidationException withNameValidationCode(String nameValidationCode) {
         BookValidationException exception = new BookValidationException();
         exception.nameValidation = nameValidationCode;
+        return exception;
+    }
+
+    public String getCountValidation(){ return countValidation;}
+
+    public static BookValidationException withCountValidationCode(String countValidationCode){
+        BookValidationException exception = new BookValidationException();
+        exception.countValidation = countValidationCode;
         return exception;
     }
 

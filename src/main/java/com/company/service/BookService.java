@@ -41,6 +41,7 @@ public class BookService {
         BookUtil.validateAuthor(book);
         BookUtil.validatePublisher(book);
         BookUtil.validatePublicationDate(book);
+        BookUtil.validateCount(book);
 
 
         dao.update(book);
@@ -51,6 +52,7 @@ public class BookService {
         BookUtil.validateAuthor(book);
         BookUtil.validatePublisher(book);
         BookUtil.validatePublicationDate(book);
+        BookUtil.validateCount(book);
 
         dao.insert(book);
     }

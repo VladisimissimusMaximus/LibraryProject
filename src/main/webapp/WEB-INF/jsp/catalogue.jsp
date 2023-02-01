@@ -130,10 +130,10 @@
             <div class="container d-flex justify-content-between">
                 <c:choose>
                     <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
-                        <form action="catalogue" method="POST" class="d-inline">
-                            <input class="btn btn-success btn-sm" type="submit"
-                                   value="<fmt:message key="app.button.create" bundle="${lang}"/>"/>
-                        </form>
+                        <a class="btn btn-success btn-sm"
+                           href="catalogue/create">
+                            <fmt:message key="app.button.create" bundle="${lang}"/>
+                        </a>
                     </c:when>
                 </c:choose>
 

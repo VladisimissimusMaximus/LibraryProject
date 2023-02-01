@@ -54,4 +54,13 @@ public class BookUtil {
             throw BookValidationException.withPublicationDateValidationCode("validation.NotEmpty");
         }
     }
+    public static void validateCount(Book book){
+        Integer count = book.getCount();
+        if(!isNonNullInteger(count)){
+            throw BookValidationException.withCountValidationCode("validation.number.valid");
+        }
+        if(count < 0){
+            throw BookValidationException.withCountValidationCode("validation.number.positive");
+        }
+    }
 }

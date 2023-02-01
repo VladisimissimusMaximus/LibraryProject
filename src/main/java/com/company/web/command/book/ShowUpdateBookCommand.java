@@ -5,7 +5,6 @@ import com.company.service.BookService;
 import com.company.util.WebUtil;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
-import com.company.web.command.user.SubmitProfileUpdateCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +35,9 @@ public class ShowUpdateBookCommand extends AbstractCommand {
         req.setAttribute("publisher", book.getPublisher());
         req.setAttribute("publicationDate", book.getPublicationDate());
         req.setAttribute("count", book.getCount());
+        req.setAttribute("action", "update");
 
-        WebUtil.forward(req, resp, View.UPDATE_BOOK);
+        WebUtil.forward(req, resp, View.SUBMIT_BOOK);
     }
 
 

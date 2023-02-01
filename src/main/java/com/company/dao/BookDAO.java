@@ -183,8 +183,8 @@ public class BookDAO {
             statement.setString(2, book.getAuthor());
             statement.setString(3, book.getPublisher());
             statement.setString(4, String.valueOf(book.getPublicationDate()));
-            statement.setInt(4, book.getCount());
-            statement.setInt(5, book.getId());
+            statement.setInt(5, book.getCount());
+            statement.setInt(6, book.getId());
 
             successful = statement.executeUpdate() > 0;
 
