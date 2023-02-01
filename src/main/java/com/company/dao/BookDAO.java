@@ -132,7 +132,7 @@ public class BookDAO {
     }
 
 
-    public boolean insert(Book book) {
+    public void insert(Book book) {
         LOGGER.info("creating new book with id `{}`", book.getId());
         String query = "INSERT INTO books (name, author, publisher, publication_date, count) VALUES (?, ?, ?, ?, ?)";
 
@@ -150,8 +150,6 @@ public class BookDAO {
             LOGGER.warn("Failed to create book `{}`, cause: {}", book.getId(), e.getMessage());
             throw new DAOException("Failed to create book", e);
         }
-
-        return true;
     }
 
     public boolean delete(int id) {

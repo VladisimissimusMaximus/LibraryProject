@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 public class SubmitRegisterCommand extends AbstractCommand {
-    private static final Logger logger = LoggerFactory.getLogger(FrontControllerServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(SubmitRegisterCommand.class);
     private final UserService service = new UserService();
 
     @Override
@@ -33,7 +33,7 @@ public class SubmitRegisterCommand extends AbstractCommand {
             resp.sendRedirect(Uri.LOGIN.getPath());
 
         } catch (UserValidationException e) {
-            logger.debug("message: error occurred {} cause {}", e, e.getCause());
+            logger.debug("message: error occurred while registering {} cause {}", e, e.getCause());
             req.setAttribute("errorCode", "error.validationError");
             req.setAttribute("emailValidation", e.getEmailValidation());
             req.setAttribute("nameValidation", e.getNameValidation());

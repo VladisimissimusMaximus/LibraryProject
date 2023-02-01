@@ -11,7 +11,9 @@ public enum View implements Resource{
     CATALOGUE("/WEB-INF/jsp/catalogue.jsp"),
     SUBSCRIBE("/WEB-INF/jsp/subscribe.jsp"),
     OPERATIONS("/WEB-INF/jsp/operations.jsp"),
-    MY_OPERATIONS("/WEB-INF/jsp/myOperations.jsp");
+    MY_OPERATIONS("/WEB-INF/jsp/myOperations.jsp"),
+    UPDATE_BOOK("/WEB-INF/jsp/updateBook.jsp"),
+    CREATE_BOOK("/WEB-INF/jsp/createBook.jsp");
 
     private final String path;
 

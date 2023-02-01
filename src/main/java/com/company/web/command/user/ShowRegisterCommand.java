@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 public class ShowRegisterCommand extends AbstractCommand {
-    private static final Logger logger = LoggerFactory.getLogger(FrontControllerServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShowRegisterCommand.class);
     @Override
     public void process() throws ServletException, IOException {
         logger.info("Starting show register");

@@ -3,6 +3,8 @@ package com.company.web;
 import com.company.web.command.Command;
 import com.company.web.command.ShowHomeCommand;
 import com.company.web.command.book.DeleteBookCommand;
+import com.company.web.command.book.ShowUpdateBookCommand;
+import com.company.web.command.book.SubmitUpdateBookCommand;
 import com.company.web.command.operation.*;
 import com.company.web.command.user.*;
 import com.company.web.command.book.ShowCatalogueCommand;
@@ -46,7 +48,10 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.MY_OPERATIONS, HttpMethod.GET), ShowMyOperationsCommand::new),
             Map.entry(new Endpoint(Uri.RETURN_BOOK, HttpMethod.GET), ReturnBookCommand::new),
             Map.entry(new Endpoint(Uri.CANCEL_ORDER, HttpMethod.GET), ReturnBookCommand::new),
-            Map.entry(new Endpoint(Uri.UNSUBSCRIBE, HttpMethod.GET), ReturnBookCommand::new)
+            Map.entry(new Endpoint(Uri.UNSUBSCRIBE, HttpMethod.GET), ReturnBookCommand::new),
+            Map.entry(new Endpoint(Uri.UPDATE_BOOK, HttpMethod.POST), SubmitUpdateBookCommand::new),
+            Map.entry(new Endpoint(Uri.UPDATE_BOOK, HttpMethod.GET), ShowUpdateBookCommand::new)
+
     );
 
     @Override

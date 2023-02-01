@@ -46,6 +46,15 @@ public class BookService {
         dao.update(book);
     }
 
+    public void create(Book book) throws BookValidationException{
+        BookUtil.validateName(book);
+        BookUtil.validateAuthor(book);
+        BookUtil.validatePublisher(book);
+        BookUtil.validatePublicationDate(book);
+
+        dao.insert(book);
+    }
+
     public int getCount(Filter filtering) {
         return filtering != null
                 ? dao.findCount(filtering)

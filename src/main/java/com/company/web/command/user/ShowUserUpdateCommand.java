@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ShowUserUpdateCommand extends AbstractCommand {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SubmitProfileUpdateCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubmitUserUpdateCommand.class);
     public static final UserService service = new UserService();
     private Integer userId;
 
