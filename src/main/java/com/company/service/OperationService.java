@@ -6,6 +6,8 @@ import com.company.model.Operation;
 import com.company.model.OperationStatus;
 import com.company.model.User;
 import com.company.util.OperationUtil;
+import com.company.util.selection.Filter;
+import com.company.util.selection.SelectionOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,16 +79,22 @@ public class OperationService {
         dao.delete(operation);
     }
 
-    public List<Operation> getAll() {
+    public List<Operation> getAll(SelectionOptions options) {
         logger.info("looking for all operations");
 
-        return dao.findAll();
+        return dao.findAll(options);
     }
 
     public List<Operation> getAllByUser(Integer userId) {
         logger.info("looking for all operations");
 
         return dao.findByUserId(userId);
+    }
+
+    public int getCount(Filter filter) {
+        return filter != null
+                ? dao.findCount(filter)
+                : dao.findCount();
     }
 
 }

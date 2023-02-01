@@ -57,9 +57,9 @@ public class BookService {
         dao.insert(book);
     }
 
-    public int getCount(Filter filtering) {
-        return filtering != null
-                ? dao.findCount(filtering)
+    public int getCount(Filter filter) {
+        return filter != null
+                ? dao.findCount(filter)
                 : dao.findCount();
     }
 }

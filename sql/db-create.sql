@@ -86,7 +86,7 @@ INSERT INTO book_operations VALUES (3, 3, DEFAULT, 'subscription', 3);
 
 
 SELECT * FROM users;
-SELECT * FROM books;
-SELECT * FROM book_operations;
+SELECT * FROM books WHERE books.count > 0 AND books.name = 'Vocabulary32';
+SELECT * FROM book_operations
 
 

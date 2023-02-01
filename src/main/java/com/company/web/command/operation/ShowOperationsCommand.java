@@ -2,6 +2,7 @@ package com.company.web.command.operation;
 
 import com.company.service.OperationService;
 import com.company.util.WebUtil;
+import com.company.util.selection.SelectionOptions;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
 import org.slf4j.Logger;
@@ -18,7 +19,12 @@ public class ShowOperationsCommand extends AbstractCommand {
     public void process() throws ServletException, IOException {
         logger.info("Start showing all operations");
 
-        req.setAttribute("operations", service.getAll());
+        SelectionOptions options = WebUtil.parseSelectionOptions(req);
+        int totalRecordsCount = service.getCount(options.getFilter());
+
+        WebUtil.appendWithSelectionAttributes(req, options, totalRecordsCount);
+
+        req.setAttribute("operations", service.getAll(options));
         WebUtil.forward(req, resp, View.OPERATIONS);
     }
 }

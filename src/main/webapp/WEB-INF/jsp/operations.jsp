@@ -13,7 +13,17 @@
 <div class="container mt-3 ml-3">
     <p class="h3 mb-4 text-center"><fmt:message key="operation.title" bundle="${lang}"/></p>
     <form class="d-flex justify-content-between">
-
+        <div class="container nowrap">
+            <div class="container text-center">
+                <p class="h6 mb-4"><fmt:message key="selection.form.filter.title" bundle="${lang}"/></p>
+            </div>
+            <div class="container">
+                <label for="filterByEmail" class="sr-only"><fmt:message key="user.email" bundle="${lang}"/></label>
+                <input type="text" name="filterByEmail" value="${filterByEmail}" id="filterByEmail"
+                       class="form-control mb-1"
+                       placeholder="<fmt:message key="user.email" bundle="${lang}" />">
+            </div>
+        </div>
         <div class="container nowrap">
             <div class="container text-center">
                 <p class="h6 mb-4"><fmt:message key="selection.form.sorting.title" bundle="${lang}"/></p>
@@ -23,17 +33,8 @@
                                                         bundle="${lang}"/>:</label>
                 <select id="selectSorting" name="order">
                     <option ${orderColumn == '' ? 'selected' : ''} value>-</option>
-                    <option value="title" ${orderColumn == 'BY_BOOK_TITLE' ? 'selected' : ''}>
-                        <fmt:message key="book.title" bundle="${lang}"/>
-                    </option>
-                    <option value="userCount" ${orderColumn == 'BY_BOOK_AUTHOR' ? 'selected' : ''}>
-                        <fmt:message key="book.author" bundle="${lang}"/>
-                    </option>
-                    <option value="publisher" ${orderColumn == 'BY_BOOK_PUBLISHER' ? 'selected' : ''}>
-                        <fmt:message key="book.publisher" bundle="${lang}"/>
-                    </option>
-                    <option value="userCount" ${orderColumn == 'BY_BOOK_PUBLICATION_DATE' ? 'selected' : ''}>
-                        <fmt:message key="book.publicationDate" bundle="${lang}"/>
+                    <option value="operation_status" ${orderColumn == 'BY_OPERATION_STATUS' ? 'selected' : ''}>
+                        <fmt:message key="operation.status" bundle="${lang}"/>
                     </option>
 
                 </select>

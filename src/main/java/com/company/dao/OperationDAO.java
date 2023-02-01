@@ -3,6 +3,8 @@ package com.company.dao;
 import com.company.model.*;
 import com.company.service.ConnectionManager;
 import com.company.util.exceptions.DAOException;
+import com.company.util.selection.Filter;
+import com.company.util.selection.SelectionOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +12,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class OperationDAO {
@@ -21,7 +24,7 @@ public class OperationDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
 
-    public List<Operation> findAll() {
+    public List<Operation> findAll(SelectionOptions options) {
         LOGGER.info("finding all operations");
 
         List<Operation> result = new ArrayList<>();
@@ -30,8 +33,19 @@ public class OperationDAO {
                 "INNER JOIN users ON book_operations.user_id = users.id " +
                 "INNER JOIN books ON book_operations.book_id = books.id ";
 
+        query = options.applyToQuery(query);
+        LOGGER.info("the query after options applied: {}", query);
+
+
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            Map<Filter.FilterColumn, String> filterColumnValues = options.getFilterColumnValues();
+            int index = 1;
+            for (Map.Entry<Filter.FilterColumn, String> entry : filterColumnValues.entrySet()) {
+                stmt.setString(index++, entry.getValue());
+            }
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -107,7 +121,6 @@ public class OperationDAO {
                 operation.setStartDate(startDate);
                 operation.setStatus(status);
                 operation.setDuration(duration);
-
                 result.add(operation);
             }
 
@@ -312,6 +325,54 @@ public class OperationDAO {
             throw new DAOException("Failed to update operation", e);
         }
         return successful;
+    }
+
+    public int findCount() {
+        LOGGER.info("finding operations count");
+
+        String query = "SELECT count(DISTINCT user_id, book_id) FROM book_operations";
+        int result = 0;
+
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("failed to find count of operations", e);
+        }
+
+        return result;
+    }
+
+    public int findCount(Filter filter) {
+        LOGGER.info("finding operations count by filter {}", filter);
+
+        String query = "SELECT count(DISTINCT user_id, book_id) FROM book_operations";
+        query = filter.applyToQuery(query);
+
+        int result = 0;
+
+        try (Connection connection = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(query);
+
+            Map<Filter.FilterColumn, String> filterColumnValues = filter.getColumnValueMap();
+            int index = 1;
+            for (Map.Entry<Filter.FilterColumn, String> entry : filterColumnValues.entrySet()) {
+                stmt.setString(index++, entry.getValue());
+            }
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("failed to find count of operations", e);
+        }
+
+        return result;
     }
 
 

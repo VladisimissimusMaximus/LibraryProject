@@ -13,6 +13,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BookDAO {
     public static final String NAME_COL = "name";
@@ -25,8 +26,7 @@ public class BookDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
 
     public List<Book> findAll(SelectionOptions options) {
-
-        LOGGER.info("getting all books");
+        LOGGER.info("getting all books with options {}", options);
 
         String query = "SELECT * FROM books WHERE books.count > 0";
         query = options.applyToQuery(query);
@@ -34,6 +34,13 @@ public class BookDAO {
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            Map<Filter.FilterColumn, String> filterColumnValues = options.getFilterColumnValues();
+            int index = 1;
+            for (Map.Entry<Filter.FilterColumn, String> entry : filterColumnValues.entrySet()) {
+                stmt.setString(index++, entry.getValue());
+            }
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -41,6 +48,78 @@ public class BookDAO {
                 int id = rs.getInt(ID_COL);
                 String name = rs.getString(NAME_COL);
                 String author = rs.getString(AUTHOR_COL);
+                String publisher = rs.getString(PUBLISHER_COL);
+                int count = rs.getInt(COUNT_COL);
+                LocalDateTime publicationDateTime = rs.getTimestamp(PUBLICATION_DATE_COL).toLocalDateTime();
+                book.setId(id);
+                book.setName(name);
+                book.setAuthor(author);
+                book.setPublisher(publisher);
+                book.setCount(count);
+                book.setPublicationDate(publicationDateTime.toLocalDate());
+                books.add(book);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.warn("Failed to find all books, cause: {}", e.getMessage());
+            throw new DAOException("Failed to find all books " , e);
+        }
+
+        return books;
+    }
+
+    public List<Book> findAllByName(String name, SelectionOptions options) {
+        LOGGER.info("getting all books by name {}", name);
+
+        String query = "SELECT * FROM books WHERE books.count > 0 AND books.name = ?";
+        query = options.applyToQuery(query);
+        List<Book> books = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                int id = rs.getInt(ID_COL);
+                String author = rs.getString(AUTHOR_COL);
+                String publisher = rs.getString(PUBLISHER_COL);
+                int count = rs.getInt(COUNT_COL);
+                LocalDateTime publicationDateTime = rs.getTimestamp(PUBLICATION_DATE_COL).toLocalDateTime();
+                book.setId(id);
+                book.setName(name);
+                book.setAuthor(author);
+                book.setPublisher(publisher);
+                book.setCount(count);
+                book.setPublicationDate(publicationDateTime.toLocalDate());
+                books.add(book);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.warn("Failed to find all books, cause: {}", e.getMessage());
+            throw new DAOException("Failed to find all books " , e);
+        }
+
+        return books;
+    }
+
+    public List<Book> findAllByAuthor(String author, SelectionOptions options) {
+        LOGGER.info("getting all books by author {}", author);
+
+        String query = "SELECT * FROM books WHERE books.count > 0 AND books.author = ?";
+        query = options.applyToQuery(query);
+        List<Book> books = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, author);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                int id = rs.getInt(ID_COL);
+                String name = rs.getString(NAME_COL);
                 String publisher = rs.getString(PUBLISHER_COL);
                 int count = rs.getInt(COUNT_COL);
                 LocalDateTime publicationDateTime = rs.getTimestamp(PUBLICATION_DATE_COL).toLocalDateTime();
@@ -218,8 +297,16 @@ public class BookDAO {
         query = filter.applyToQuery(query);
         int result = 0;
         try (Connection connection = ConnectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ) {
+
+            Map<Filter.FilterColumn, String> filterColumnValues = filter.getColumnValueMap();
+            int index = 1;
+            for (Map.Entry<Filter.FilterColumn, String> entry : filterColumnValues.entrySet()) {
+                stmt.setString(index++, entry.getValue());
+            }
+
+            ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 result = resultSet.getInt(1);
             }

@@ -13,7 +13,17 @@
 <div class="container mt-3 ml-3">
     <p class="h3 mb-4 text-center"><fmt:message key="book.catalogue" bundle="${lang}"/></p>
     <form class="d-flex justify-content-between">
-
+        <div class="container nowrap">
+            <div class="container text-center">
+                <p class="h6 mb-4"><fmt:message key="selection.form.filter.title" bundle="${lang}"/></p>
+            </div>
+            <div class="container">
+                <label for="filterByEmail" class="sr-only"><fmt:message key="user.email" bundle="${lang}"/></label>
+                <input type="text" name="filterByEmail" value="${filterByEmail}" id="filterByEmail"
+                       class="form-control mb-1"
+                       placeholder="<fmt:message key="user.email" bundle="${lang}" />">
+            </div>
+        </div>
         <div class="container nowrap">
             <div class="container text-center">
                 <p class="h6 mb-4"><fmt:message key="selection.form.sorting.title" bundle="${lang}"/></p>

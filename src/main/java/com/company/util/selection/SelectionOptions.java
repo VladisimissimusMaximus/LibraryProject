@@ -4,6 +4,10 @@ import com.company.util.ValidationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.PreparedStatement;
+import java.util.Collections;
+import java.util.Map;
+
 public class SelectionOptions {
     private static final Logger logger = LoggerFactory.getLogger(SelectionOptions.class);
     private Order order;
@@ -15,7 +19,7 @@ public class SelectionOptions {
     }
 
     public String applyToQuery(String query) {
-        logger.info("start applying filter to sql query '{}'", query);
+        logger.info("start applying selection options to sql query '{}'", query);
         if (filter != null) {
             query = filter.applyToQuery(query);
         }
@@ -25,7 +29,7 @@ public class SelectionOptions {
         if(paging!=null) {
             query = paging.applyToQuery(query);
         }
-        logger.info("finished applying filter, the result is '{}'", query);
+        logger.info("finished applying selection options, the result is '{}'", query);
         return query;
     }
 
@@ -33,9 +37,21 @@ public class SelectionOptions {
         return paging;
     }
 
+    public Map<Filter.FilterColumn, String> getFilterColumnValues() {
+        return filter != null ? filter.getColumnValueMap() : Collections.emptyMap();
+    }
 
     public Filter getFilter() {
         return filter;
+    }
+
+    @Override
+    public String toString() {
+        return "SelectionOptions{" +
+                "order=" + order +
+                ", paging=" + paging +
+                ", filter=" + filter +
+                '}';
     }
 
     public static Builder build() {
@@ -70,6 +86,9 @@ public class SelectionOptions {
                         break;
                     case "publication_date":
                         order = Order.BY_PUBLICATION_DATE;
+                        break;
+                    case "operation_status":
+                        order = Order.BY_OPERATION_STATUS;
                         break;
                 }
                 SelectionOptions.this.order = order;
