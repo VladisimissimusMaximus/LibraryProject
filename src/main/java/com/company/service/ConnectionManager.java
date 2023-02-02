@@ -4,34 +4,40 @@ import com.company.util.exceptions.ConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-    private static final String URI = "jdbc:mysql://localhost:3306/librarydb";
     private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
+    private static final DataSource dataSource = initDataSource();
 
-    static {
+    private ConnectionManager() {}
+
+    private static DataSource initDataSource() {
+        LOGGER.debug("Retrieving DataSource from context");
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("for name error");
+            Context initContext = new InitialContext();
+            Context envContext  = (Context)initContext.lookup("java:/comp/env");
+            return (DataSource)envContext.lookup("jdbc/librarydb");
+        } catch (NamingException e) {
+            LOGGER.error("Failed to obtain instance of DataSource", e);
+            throw new ConnectionException("failed to obtain instance of DataSource", e);
         }
     }
 
     public static synchronized Connection getConnection() {
         LOGGER.debug("Getting DB connection");
-        Connection con = null;
+        Connection connection;
         try {
-            con = DriverManager.getConnection(URI,
-                    "root", "Vladius92vvv");
-        } catch (Exception e) {
-            LOGGER.error("Failed to retrieve DB Connection from pool", e);
-            throw new ConnectionException("Failed to retrieve DB Connection from pool", e);
+            connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            LOGGER.error("Failed to obtain a connection from DataSource", e);
+            throw new ConnectionException("Failed to obtain a connection from DataSource", e);
         }
-        return con;
-
+        return connection;
     }
 }
