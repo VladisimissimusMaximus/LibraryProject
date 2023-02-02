@@ -5,6 +5,7 @@ import com.company.util.selection.Order;
 import com.company.util.selection.Paging;
 import com.company.util.selection.SelectionOptions;
 import com.company.web.Resource;
+import com.company.web.Uri;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,9 +76,16 @@ public final class WebUtil {
                             column.getAttributeValue(), value
                     ));
         }
+    }
 
+    public static void redirectToRefererOrHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String referer = req.getHeader("referer");
+        String contextPath = req.getContextPath();
+        String refererUri = referer.substring(
+                referer.indexOf(contextPath) + contextPath.length() + 1
+        );
 
-
+        resp.sendRedirect(String.format("%s/%s", contextPath, refererUri));
     }
 
 }

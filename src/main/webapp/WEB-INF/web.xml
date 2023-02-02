@@ -76,8 +76,8 @@
 
     <filter-mapping>
         <filter-name>readerAuthorizationFilter</filter-name>
-        <url-pattern>/catalogue/operation/read/*</url-pattern>
-        <url-pattern>/catalogue/operation/subscribe/*</url-pattern>
+        <url-pattern>/catalogue/operations/read/*</url-pattern>
+        <url-pattern>/catalogue/operations/subscribe/*</url-pattern>
     </filter-mapping>
 
     <filter>

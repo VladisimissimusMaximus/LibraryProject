@@ -19,7 +19,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/catalogue"><fmt:message key="book.catalogue" bundle="${lang}"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/profile/operation"><fmt:message key="myoperations" bundle="${lang}"/></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/profile/operations"><fmt:message key="myoperations" bundle="${lang}"/></a>
                     </li>
                 </c:when>
                 <c:when test="${ADMINISTRATOR == SESSION_ROLE || LIBRARIAN == SESSION_ROLE}">
@@ -30,7 +30,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/catalogue"><fmt:message key="book.catalogue" bundle="${lang}"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/catalogue/operation"><fmt:message key="book.operation.title" bundle="${lang}"/></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/catalogue/operations"><fmt:message key="book.operation.title" bundle="${lang}"/></a>
                     </li>
                 </c:when>
             </c:choose>

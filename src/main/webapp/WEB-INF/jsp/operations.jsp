@@ -105,19 +105,19 @@
                             <c:choose>
                                 <c:when test="${(ADMINISTRATOR == SESSION_ROLE || LIBRARIAN == SESSION_ROLE) && operation.status.name() == ORDER}">
                                     <a class="btn btn-success btn-sm"
-                                       href="operation/approve?userId=${operation.user.id}&bookId=${operation.book.id}">
+                                       href="operations/approve?userId=${operation.user.id}&bookId=${operation.book.id}">
                                         <fmt:message key="app.button.approve" bundle="${lang}"/>
                                     </a>
                                 </c:when>
                                 <c:when test="${READER == SESSION_ROLE && operation.status.name() == SUBSCRIPTION}">
                                     <a class="btn btn-success btn-sm"
-                                       href="operation/unsubscribe/${book.id}">
+                                       href="operations/unsubscribe/${book.id}">
                                         <fmt:message key="app.button.payAndUnsubscribe" bundle="${lang}"/>
                                     </a>
                                 </c:when>
                                 <c:when test="${READER == SESSION_ROLE && operation.status.name() == READING_ROOM}">
                                     <a class="btn btn-success btn-sm"
-                                       href="operation/return/${book.id}">
+                                       href="operations/return/${book.id}">
                                         <fmt:message key="app.button.return" bundle="${lang}"/>
                                     </a>
                                 </c:when>

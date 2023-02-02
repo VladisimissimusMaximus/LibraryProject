@@ -126,11 +126,11 @@
                                 </c:when>
                                 <c:when test="${READER == SESSION_ROLE}">
                                     <a class="btn btn-success btn-sm"
-                                       href="catalogue/operation/subscribe/${book.id}">
+                                       href="catalogue/operations/subscribe/${book.id}">
                                         <fmt:message key="app.button.subscribe" bundle="${lang}"/>
                                     </a>
                                     <a class="btn btn-info btn-sm"
-                                       href="catalogue/operation/read/${book.id}">
+                                       href="catalogue/operations/read/${book.id}">
                                         <fmt:message key="app.button.read" bundle="${lang}"/>
                                     </a>
                                 </c:when>

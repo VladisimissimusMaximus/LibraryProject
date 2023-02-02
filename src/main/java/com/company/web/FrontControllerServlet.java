@@ -42,6 +42,7 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.GET), ShowSubscribeCommand::new),
             Map.entry(new Endpoint(Uri.SUBSCRIBE, HttpMethod.POST), SubmitSubscribeCommand::new),
             Map.entry(new Endpoint(Uri.APPROVE, HttpMethod.GET), ApproveOrderCommand::new),
+            Map.entry(new Endpoint(Uri.APPROVE_USER_OPERATION, HttpMethod.GET), ApproveOrderCommand::new),
             Map.entry(new Endpoint(Uri.OPERATIONS, HttpMethod.GET), ShowOperationsCommand::new),
             Map.entry(new Endpoint(Uri.MY_OPERATIONS, HttpMethod.GET), ShowMyOperationsCommand::new),
             Map.entry(new Endpoint(Uri.RETURN_BOOK, HttpMethod.GET), ReturnBookCommand::new),
@@ -52,7 +53,8 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.CREATE_BOOK, HttpMethod.GET), ShowCreateBookCommand::new),
             Map.entry(new Endpoint(Uri.CREATE_BOOK, HttpMethod.POST), SubmitCreateBookCommand::new),
             Map.entry(new Endpoint(Uri.ENABLE_USER, HttpMethod.POST), SubmitEnableCommand::new),
-            Map.entry(new Endpoint(Uri.DISABLE_USER, HttpMethod.POST), SubmitDisableCommand::new)
+            Map.entry(new Endpoint(Uri.DISABLE_USER, HttpMethod.POST), SubmitDisableCommand::new),
+            Map.entry(new Endpoint(Uri.USER_OPERATIONS, HttpMethod.GET), ShowReaderOperationsCommand::new)
             );
 
     @Override

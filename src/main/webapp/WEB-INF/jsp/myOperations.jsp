@@ -9,7 +9,8 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="container mt-3 ml-3">
-    <p class="h3 mb-4 text-center"><fmt:message key="myoperations" bundle="${lang}"/></p>
+    <p class="h3 mb-4 text-center"><fmt:message key="${READER != SESSION_ROLE ? 'user.operations' : 'myoperations'}"
+                                                bundle="${lang}"/></p>
     <c:choose>
         <c:when test="${not empty errorCode}">
             <div class="alert alert-warning" role="alert">
@@ -47,36 +48,53 @@
                             </c:choose>
                         </td>
                         <td>
-                                <c:choose>
-                                    <c:when test="${operation.status.name() == SUBSCRIPTION}">
-                                        ${fn:calculateDebt(operation.startDate, operation.duration)}
-                                    </c:when>
-                                    <c:otherwise>
-                                        0
-                                    </c:otherwise>
-                                </c:choose>
+                            <c:choose>
+                                <c:when test="${operation.status.name() == SUBSCRIPTION}">
+                                    ${fn:calculateDebt(operation.startDate, operation.duration)}
+                                </c:when>
+                                <c:otherwise>
+                                    -
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                         <td>
                             <c:choose>
-                                <c:when test="${operation.status.name() == ORDER}">
+                                <c:when test="${READER == SESSION_ROLE}">
+                                    <c:choose>
+                                        <c:when test="${operation.status.name() == ORDER}">
+                                            <a class="btn btn-danger btn-sm"
+                                               href="operations/cancel/${operation.book.id}">
+                                                <fmt:message key="app.button.cancel" bundle="${lang}"/>
+                                            </a>
+                                        </c:when>
+                                        <c:when test="${operation.status.name() == SUBSCRIPTION}">
+                                            <a class="btn btn-success btn-sm"
+                                               href="operations/unsub/${operation.book.id}">
+                                                <fmt:message key="app.button.payAndUnsubscribe" bundle="${lang}"/>
+                                            </a>
+                                        </c:when>
+                                        <c:when test="${operation.status.name() == READING_ROOM}">
+                                            <a class="btn btn-info btn-sm"
+                                               href="operations/return/${operation.book.id}">
+                                                <fmt:message key="app.button.return" bundle="${lang}"/>
+                                            </a>
+                                        </c:when>
+                                    </c:choose>
+                                </c:when>
+                                <c:when test="${LIBRARIAN == SESSION_ROLE && operation.status.name() == ORDER}">
+                                    <a class="btn btn-success btn-sm"
+                                       href="approve?bookId=${operation.book.id}&userId=${operation.user.id}">
+                                        <fmt:message key="app.button.approve" bundle="${lang}"/>
+                                    </a>
+                                </c:when>
+                                <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
                                     <a class="btn btn-danger btn-sm"
-                                       href="operation/cancel/${operation.book.id}">
+                                       href="cancel?bookId=${operation.book.id}&userId=${operation.user.id}">
                                         <fmt:message key="app.button.cancel" bundle="${lang}"/>
                                     </a>
                                 </c:when>
-                                <c:when test="${READER == SESSION_ROLE && operation.status.name() == SUBSCRIPTION}">
-                                    <a class="btn btn-success btn-sm"
-                                       href="operation/unsub/${operation.book.id}">
-                                        <fmt:message key="app.button.payAndUnsubscribe" bundle="${lang}"/>
-                                    </a>
-                                </c:when>
-                                <c:when test="${READER == SESSION_ROLE && operation.status.name() == READING_ROOM}">
-                                    <a class="btn btn-info btn-sm"
-                                       href="operation/return/${operation.book.id}">
-                                        <fmt:message key="app.button.return" bundle="${lang}"/>
-                                    </a>
-                                </c:when>
                             </c:choose>
+
                         </td>
                     </tr>
                 </c:forEach>

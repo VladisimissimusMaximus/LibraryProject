@@ -29,6 +29,9 @@
                     <th scope="col"><fmt:message key="user.access" bundle="${lang}"/></th>
                     <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
                 </c:when>
+                <c:when test="${LIBRARIAN == SESSION_ROLE}">
+                    <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
+                </c:when>
             </c:choose>
         </tr>
         </thead>
@@ -73,9 +76,21 @@
                                 <fmt:message key="app.button.update" bundle="${lang}"/>
                             </a>
 
-                            <a class="btn btn-danger btn-sm"
+                                <a class="btn btn-danger btn-sm"
                                href="${user.id eq sessionScope.userId ? "users" : "users/delete/".concat(user.id)}">
                                 <fmt:message key="app.button.delete" bundle="${lang}"/>
+                            </a>
+                            <a class="btn btn-warning btn-sm"
+                               href="users/operations/${user.id}">
+                                <fmt:message key="app.button.operations" bundle="${lang}"/>
+                            </a>
+                        </td>
+                    </c:when>
+                    <c:when test="${LIBRARIAN == SESSION_ROLE}">
+                        <td>
+                            <a class="btn btn-warning btn-sm"
+                               href="users/operations/${user.id}">
+                                <fmt:message key="app.button.operations" bundle="${lang}"/>
                             </a>
                         </td>
                     </c:when>
