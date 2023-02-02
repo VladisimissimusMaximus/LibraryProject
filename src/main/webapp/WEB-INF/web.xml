@@ -80,6 +80,27 @@
         <url-pattern>/catalogue/operation/subscribe/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>adminAuthorizationFilter</filter-name>
+        <filter-class>com.company.web.filter.AuthorizationFilter</filter-class>
+        <init-param>
+            <param-name>role-id-list</param-name>
+            <param-value>3</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>adminAuthorizationFilter</filter-name>
+        <url-pattern>/users/update/*</url-pattern>
+        <url-pattern>/users/create/*</url-pattern>
+        <url-pattern>/users/delete/*</url-pattern>
+        <url-pattern>/users/enable/*</url-pattern>
+        <url-pattern>/users/disable/*</url-pattern>
+        <url-pattern>/catalogue/delete/*</url-pattern>
+        <url-pattern>/catalogue/update/*</url-pattern>
+        <url-pattern>/catalogue/create/*</url-pattern>
+    </filter-mapping>
+
         <!-- ENSURE INCOMING HTTP REQUESTS ARE PROPERLY ROUTED -->
     <filter>
         <filter-name>frontControllerRedirectFilter</filter-name>

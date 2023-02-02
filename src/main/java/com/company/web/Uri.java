@@ -25,7 +25,9 @@ public enum Uri implements Resource {
     CANCEL_ORDER("profile/operation/cancel/%d"),
     UNSUBSCRIBE("profile/operation/unsub/%d"),
     UPDATE_BOOK("catalogue/update/%d"),
-    CREATE_BOOK("catalogue/create");
+    CREATE_BOOK("catalogue/create"),
+    ENABLE_USER("users/enable/%d"),
+    DISABLE_USER("users/disable/%d");
 
     private final String path;
 

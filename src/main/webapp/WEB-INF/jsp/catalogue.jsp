@@ -16,10 +16,16 @@
                 <p class="h6 mb-4"><fmt:message key="selection.form.filter.title" bundle="${lang}"/></p>
             </div>
             <div class="container">
-                <label for="filterByEmail" class="sr-only"><fmt:message key="user.email" bundle="${lang}"/></label>
-                <input type="text" name="filterByEmail" value="${filterByEmail}" id="filterByEmail"
+                <label for="filterByName" class="sr-only"><fmt:message key="book.title" bundle="${lang}"/></label>
+                <input type="text" name="filterByName" value="${filterByName}" id="filterByName"
                        class="form-control mb-1"
-                       placeholder="<fmt:message key="user.email" bundle="${lang}" />">
+                       placeholder="<fmt:message key="book.title" bundle="${lang}" />">
+            </div>
+            <div class="container">
+                <label for="filterByAuthor" class="sr-only"><fmt:message key="book.author" bundle="${lang}"/></label>
+                <input type="text" name="filterByAuthor" value="${filterByAuthor}" id="filterByAuthor"
+                       class="form-control mb-1"
+                       placeholder="<fmt:message key="book.author" bundle="${lang}" />">
             </div>
         </div>
         <div class="container nowrap">

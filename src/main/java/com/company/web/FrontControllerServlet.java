@@ -50,8 +50,10 @@ public class FrontControllerServlet extends HttpServlet {
             Map.entry(new Endpoint(Uri.UPDATE_BOOK, HttpMethod.POST), SubmitUpdateBookCommand::new),
             Map.entry(new Endpoint(Uri.UPDATE_BOOK, HttpMethod.GET), ShowUpdateBookCommand::new),
             Map.entry(new Endpoint(Uri.CREATE_BOOK, HttpMethod.GET), ShowCreateBookCommand::new),
-            Map.entry(new Endpoint(Uri.CREATE_BOOK, HttpMethod.POST), SubmitCreateBookCommand::new)
-    );
+            Map.entry(new Endpoint(Uri.CREATE_BOOK, HttpMethod.POST), SubmitCreateBookCommand::new),
+            Map.entry(new Endpoint(Uri.ENABLE_USER, HttpMethod.POST), SubmitEnableCommand::new),
+            Map.entry(new Endpoint(Uri.DISABLE_USER, HttpMethod.POST), SubmitDisableCommand::new)
+            );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

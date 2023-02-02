@@ -4,10 +4,13 @@ import com.company.dao.UserDAO;
 import com.company.model.User;
 import com.company.util.UserUtil;
 import com.company.util.exceptions.UserValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public static final UserDAO userDAO = new UserDAO();
 
@@ -41,6 +44,11 @@ public class UserService {
         UserUtil.validateName(user);
 
         userDAO.update(user);
+    }
+
+    public void updateEnabled(Integer userId, boolean enabled) {
+        logger.info("setting 'enabled' to {} for user {}", enabled, userId);
+        userDAO.updateEnabled(userId, enabled);
     }
 
 }

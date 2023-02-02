@@ -25,13 +25,11 @@ public class SubmitLoginCommand extends AbstractCommand {
 
         String password = req.getParameter("password");
         User user = service.getByEmail(req.getParameter("email"));
-        if (UserUtil.checkPasswordsEquals(password, user.getPassword())) {
-                renewUserSession(req, user);
-            //   resp.sendRedirect(Uri.HOME.getPath());
+        if (UserUtil.checkPasswordsEquals(password, user.getPassword()) && user.getEnabled()) {
+            renewUserSession(req, user);
             resp.sendRedirect(Uri.HOME.toAbsolutePath(req.getContextPath()));
         } else {
-            logger.info("wrong passwords: user password is " + user.getPassword() + " and provided " + password);
-            //throw new NotFoundException();
+            logger.info("wrong passwords OR USER IS DISABLED: user password is " + user.getPassword() + " and provided " + password);
             req.setAttribute("errorCode", "error.wrongCredentials" );
             WebUtil.forward(req, resp, View.LOGIN);
         }

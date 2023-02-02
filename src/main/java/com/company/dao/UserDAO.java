@@ -200,5 +200,24 @@ public class UserDAO {
         return successful;
     }
 
+    public boolean updateEnabled(Integer userId, boolean enabled) {
+        LOGGER.info("Updating 'enabled' field for user with id `{}` to {}", userId, enabled);
+
+        boolean successful = false;
+        String query = "UPDATE users SET enabled = ?" +
+                "  WHERE id = ?";
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement statement = con.prepareStatement(query)) {
+            statement.setBoolean(1, enabled);
+            statement.setInt(2, userId);
+
+            successful = statement.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            LOGGER.warn("Failed to update user 'enabled' , cause: {}", e.getMessage());
+            throw new DAOException("Failed to update user 'enabled'", e);
+        }
+        return successful;
+    }
 
 }

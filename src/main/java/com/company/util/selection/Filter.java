@@ -23,7 +23,7 @@ public class Filter {
         StringTokenizer tokenizer = new StringTokenizer(string, "&");
 
         while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken();
+            String token = tokenizer.nextToken().replaceAll("[+]", " ");
 
             int startIndex = token.indexOf("=");
             if (startIndex == -1) continue;

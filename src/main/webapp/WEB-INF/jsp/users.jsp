@@ -26,6 +26,7 @@
             <th scope="col"><fmt:message key="user.registered" bundle="${lang}"/></th>
             <c:choose>
                 <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
+                    <th scope="col"><fmt:message key="user.access" bundle="${lang}"/></th>
                     <th scope="col"><fmt:message key="app.actions" bundle="${lang}"/></th>
                 </c:when>
             </c:choose>
@@ -56,8 +57,16 @@
                     </c:choose>
                 </td>
                 <td>${fn:formatDateTime(user.registered)}</td>
+
                 <c:choose>
                     <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
+                        <td>
+                            <form class="form-inline" action="users/${user.enabled ? 'disable' : 'enable'}/${user.id}" method="POST" >
+                                <label for="enabledInput" class="sr-only"></label>
+                                <input type="checkbox" value="" id="enabledInput" ${user.enabled ? 'checked=""' : ''} onchange="this.form.submit()">
+                            </form>
+                        </td>
+
                         <td>
                             <a class="btn btn-info btn-sm"
                                href="users/update/${user.id}">
