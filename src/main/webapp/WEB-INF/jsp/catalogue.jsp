@@ -3,8 +3,6 @@
 <%@ taglib prefix="fn" uri="http://company.com/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="orderColumn" value="${sessionScope.order}"/>
-<c:set var="recordsPerPage" value="${sessionScope.paging.recordsPerPage}"/>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
@@ -36,13 +34,13 @@
                     <option value="title" ${orderColumn == 'BY_BOOK_TITLE' ? 'selected' : ''}>
                         <fmt:message key="book.title" bundle="${lang}"/>
                     </option>
-                    <option value="userCount" ${orderColumn == 'BY_BOOK_AUTHOR' ? 'selected' : ''}>
+                    <option value="author" ${orderColumn == 'BY_BOOK_AUTHOR' ? 'selected' : ''}>
                         <fmt:message key="book.author" bundle="${lang}"/>
                     </option>
                     <option value="publisher" ${orderColumn == 'BY_BOOK_PUBLISHER' ? 'selected' : ''}>
                         <fmt:message key="book.publisher" bundle="${lang}"/>
                     </option>
-                    <option value="userCount" ${orderColumn == 'BY_BOOK_PUBLICATION_DATE' ? 'selected' : ''}>
+                    <option value="publicationDate" ${orderColumn == 'BY_BOOK_PUBLICATION_DATE' ? 'selected' : ''}>
                         <fmt:message key="book.publicationDate" bundle="${lang}"/>
                     </option>
 
@@ -137,7 +135,7 @@
 
             </table>
 
-            <div class="container d-flex justify-content-between">
+            <div class="container d-flex justify-content-between" style="margin-bottom:50px">
                 <c:choose>
                     <c:when test="${ADMINISTRATOR == SESSION_ROLE}">
                         <a class="btn btn-success btn-sm"
@@ -147,16 +145,16 @@
                     </c:when>
                 </c:choose>
 
-                <div class="container text-center">
+                <div class="container text-center" >
                     <c:if test="${currentPage > 1}">
-                        <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}"><--</a>
+                        <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}"><--</a>
                     </c:if>
                     <c:forEach begin="1" end="${pagesTotal}" varStatus="pages">
                         <a class="mr-1 ${currentPage == pages.index ? 'btm-xsm-red' : ''}"
-                           href="catalogue?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}">${pages.index}</a>
+                           href="catalogue?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}">${pages.index}</a>
                     </c:forEach>
                     <c:if test="${currentPage < pagesTotal}">
-                        <a href="catalogue?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}">--></a>
+                        <a href="catalogue?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}">--></a>
                     </c:if>
                 </div>
 

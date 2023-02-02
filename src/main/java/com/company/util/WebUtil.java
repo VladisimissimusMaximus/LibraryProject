@@ -1,5 +1,7 @@
 package com.company.util;
 
+import com.company.util.selection.Filter;
+import com.company.util.selection.Order;
 import com.company.util.selection.Paging;
 import com.company.util.selection.SelectionOptions;
 import com.company.web.Resource;
@@ -52,15 +54,30 @@ public final class WebUtil {
             paging = new Paging();
         }
 
-        Integer currentPage = paging.getCurrentPage();
-        logger.info("currentPage is {}", currentPage);
+        int recordsPerPage = paging.getRecordsPerPage();
+        req.setAttribute("recordsPerPage", recordsPerPage);
 
+        int pagesTotal = (int) Math.ceil(totalCount * 1.0 / recordsPerPage);
+        req.setAttribute("pagesTotal", pagesTotal);
+
+        Integer currentPage = paging.getCurrentPage();
         req.setAttribute("currentPage", currentPage);
 
-        int pagesTotal = (int) Math.ceil(totalCount * 1.0 / paging.getRecordsPerPage());
-        logger.info("pages total is {}", pagesTotal);
+        Order order = options.getOrder();
+        if (order != null) {
+            req.setAttribute("order", order.getAttributeValue());
+        }
 
-        req.setAttribute("pagesTotal", pagesTotal);
+        Filter filter = options.getFilter();
+        if (filter != null) {
+            filter.getColumnValueMap()
+                    .forEach((column, value) -> req.setAttribute(
+                            column.getAttributeValue(), value
+                    ));
+        }
+
+
+
     }
 
 }

@@ -15,18 +15,17 @@ public class FrontControllerPathResolveFilter extends HttpFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(FrontControllerPathResolveFilter.class);
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String path = req.getRequestURI().substring(req.getContextPath().length());
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String path = request.getRequestURI().substring(request.getContextPath().length());
         if (path.startsWith("/resources/")) {
             chain.doFilter(request, response);
         } else {
             if ("/".equals(path)) {
                 LOGGER.debug("redirecting request to home page");
-                ((HttpServletResponse)response).sendRedirect("home");
+                (response).sendRedirect("home");
                 return;
             }
-            String queryString = req.getQueryString();
+            String queryString = request.getQueryString();
             request.getRequestDispatcher("/app" + path + "?" + queryString).forward(request, response);
         }
     }

@@ -21,7 +21,7 @@ public class LanguageFilter extends HttpFilter {
         HttpSession session = req.getSession(false);
 
         String language = req.getParameter(LANGUAGE);
-        LOGGER.info("received a request {} with language parameter '{}'", req, language);
+        LOGGER.info("received a request {} with language parameter '{}'", req.getRequestURI(), language);
         if (session != null && language != null) {
             LOGGER.debug("found a valid session {}, trying to resolve language", session);
 

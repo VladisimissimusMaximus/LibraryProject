@@ -1,5 +1,6 @@
 package com.company.web;
 
+import com.company.util.WebUtil;
 import com.company.web.command.Command;
 import com.company.web.command.ShowHomeCommand;
 import com.company.web.command.book.*;
@@ -64,11 +65,21 @@ public class FrontControllerServlet extends HttpServlet {
     }
 
     private void processCommand(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("start processing command {}", req.getRequestURI() + req.getQueryString());
+        logger.info("start processing command {} with query string {}", req.getRequestURI(), req.getQueryString());
         Endpoint endpoint = Endpoint.fromRequest(req);
-        Command command = commands.get(endpoint).get();
-        command.init(req, resp);
-        command.process();
+        Supplier<Command> commandSupplier = commands.get(endpoint);
+        if (commandSupplier != null) {
+            Command command = commandSupplier.get();
+            command.init(req, resp);
+            command.process();
+        } else {
+            logger.warn("no command found to handle request {}, forwarding to error", req.getRequestURI());
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            req.setAttribute("errorTitle", "error.notFound.title");
+            req.setAttribute("errorMessage", "error.notFound.message");
+            WebUtil.forward(req, resp, View.ERROR);
+        }
+
 
     }
 

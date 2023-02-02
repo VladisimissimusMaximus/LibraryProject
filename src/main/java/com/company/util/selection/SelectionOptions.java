@@ -4,7 +4,6 @@ import com.company.util.ValidationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.PreparedStatement;
 import java.util.Collections;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public class SelectionOptions {
     public String applyToQuery(String query) {
         logger.info("start applying selection options to sql query '{}'", query);
         if (filter != null) {
-            query = filter.applyToQuery(query);
+            query = filter.applyToSQLQuery(query);
         }
         if (order != null) {
             query = order.applyToQuery(query);
@@ -43,6 +42,10 @@ public class SelectionOptions {
 
     public Filter getFilter() {
         return filter;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     @Override
@@ -118,6 +121,9 @@ public class SelectionOptions {
         }
 
         public SelectionOptions build() {
+            if (SelectionOptions.this.paging == null) {
+                SelectionOptions.this.paging = new Paging();
+            }
             return SelectionOptions.this;
         }
 

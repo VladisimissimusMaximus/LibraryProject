@@ -4,7 +4,6 @@ import com.company.service.ConnectionManager;
 import com.company.model.Book;
 import com.company.util.exceptions.DAOException;
 import com.company.util.selection.Filter;
-import com.company.util.selection.Paging;
 import com.company.util.selection.SelectionOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -294,7 +293,7 @@ public class BookDAO {
     public int findCount(Filter filter) {
         LOGGER.info("find count of books with filter {}" + filter.toString());
         String query = "SELECT count(id) FROM books WHERE books.count > 0";
-        query = filter.applyToQuery(query);
+        query = filter.applyToSQLQuery(query);
         int result = 0;
         try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query);

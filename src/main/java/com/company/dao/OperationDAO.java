@@ -350,7 +350,7 @@ public class OperationDAO {
         LOGGER.info("finding operations count by filter {}", filter);
 
         String query = "SELECT count(DISTINCT user_id, book_id) FROM book_operations";
-        query = filter.applyToQuery(query);
+        query = filter.applyToSQLQuery(query);
 
         int result = 0;
 

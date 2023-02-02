@@ -15,21 +15,8 @@ public class Filter {
     public static boolean isPresent(String queryString) {
         if (queryString == null) return false;
 
-        for (String token : queryString.split("&")) {
-            if (token.contains("filterBy") & token.contains("=")) {
-                return !"".equals(token.substring(token.indexOf("=") + 1).trim());
-            }
-        }
-
-        return false;
-    }
-
-    public String applyToQuery(String query) {
-        for (Map.Entry<FilterColumn, String> entry : columnValueMap.entrySet()) {
-            String operator = query.contains("WHERE") ? "AND" : "WHERE";
-            query = String.format("%s %s %s = ?", query, operator, entry.getKey().columnName);
-        }
-        return query;
+        return Arrays.stream(FilterColumn.values())
+                .anyMatch(filterColumn -> queryString.contains(filterColumn.attributeValue));
     }
 
     private void init(String string) {
@@ -38,23 +25,25 @@ public class Filter {
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
 
-            FilterColumn column = FilterColumn.toFilterColumn(extractColumnName(token));
-            if (column == null) continue;
-
             int startIndex = token.indexOf("=");
             if (startIndex == -1) continue;
 
             String value = token.substring(startIndex + 1);
             if ("".equals(value.trim())) continue;
 
+            FilterColumn column = FilterColumn.toFilterColumn(token);
+            if (column == null) continue;
+
             columnValueMap.put(column, value);
         }
     }
 
-    private static String extractColumnName(String string) {
-        int startIndex = string.contains("filterBy") ? "filterBy".length() : 0;
-        System.out.println(string);
-        return string.substring(startIndex, string.indexOf("="));
+    public String applyToSQLQuery(String query) {
+        for (Map.Entry<FilterColumn, String> entry : columnValueMap.entrySet()) {
+            String operator = query.contains("WHERE") ? "AND" : "WHERE";
+            query = String.format("%s %s %s = ?", query, operator, entry.getKey().columnName);
+        }
+        return query;
     }
 
     @Override
@@ -69,24 +58,31 @@ public class Filter {
     }
 
     public enum FilterColumn {
-        NAME("books.name"), AUTHOR("books.author"),
-        EMAIL("email"), USERID("user_id");
+        NAME("books.name", "filterByName"),
+        AUTHOR("books.author", "filterByAuthor"),
+        EMAIL("email", "filterByEmail"),
+        USER_ID("user_id", "filterByUserId");
+
         private final String columnName;
+        private final String attributeValue;
 
-        FilterColumn(String columnName) {
+        FilterColumn(String columnName, String attributeValue) {
             this.columnName = columnName;
+            this.attributeValue = attributeValue;
         }
 
-        private static FilterColumn toFilterColumn(String columnName) {
-            return Arrays.stream(values())
-                    .filter(column -> columnName.equalsIgnoreCase(column.name()))
-                    .findFirst()
+        private static FilterColumn toFilterColumn(String keyValueParameterPair) {
+            String parameterName = keyValueParameterPair.substring(0, keyValueParameterPair.indexOf("="));
+            return Arrays.stream(FilterColumn.values())
+                    .filter(filterColumn ->
+                            filterColumn.getAttributeValue()
+                                    .equalsIgnoreCase(parameterName))
+                    .findAny()
                     .orElse(null);
-
         }
 
-        public String getColumnName() {
-            return columnName;
+        public String getAttributeValue() {
+            return attributeValue;
         }
     }
 }
