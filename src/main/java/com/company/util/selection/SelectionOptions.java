@@ -4,6 +4,7 @@ import com.company.util.ValidationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -76,25 +77,13 @@ public class SelectionOptions {
 
         public Builder withOrder(String orderParam) {
             if (orderParam != null) {
-                Order order = null;
-                switch (orderParam) {
-                    case "title":
-                        order = Order.BY_TITLE;
-                        break;
-                    case "author":
-                        order = Order.BY_AUTHOR;
-                        break;
-                    case "publisher":
-                        order = Order.BY_PUBLISHER;
-                        break;
-                    case "publication_date":
-                        order = Order.BY_PUBLICATION_DATE;
-                        break;
-                    case "operation_status":
-                        order = Order.BY_OPERATION_STATUS;
-                        break;
-                }
-                SelectionOptions.this.order = order;
+                SelectionOptions.this.order = Arrays.stream(Order.values())
+                        .filter(orderInstance ->
+                                orderInstance.getAttributeValue()
+                                        .equalsIgnoreCase(orderParam)
+                        )
+                        .findAny()
+                        .orElse(null);
             }
             return this;
         }

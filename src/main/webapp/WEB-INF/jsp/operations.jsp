@@ -13,17 +13,33 @@
     <form class="d-flex justify-content-between">
         <div class="container nowrap">
             <div class="container text-center">
+                <p class="h6 mb-4"><fmt:message key="selection.form.filter.title" bundle="${lang}"/></p>
+            </div>
+            <div class="container">
+                <label for="filterByStatus"><fmt:message key="operation.status"
+                                                        bundle="${lang}"/>:</label>
+                <select id="filterByStatus" name="filterByStatus">
+                    <option ${orderColumn == '' ? 'selected' : ''} value>-</option>
+                    <option value="ORDER" ${orderColumn == '' ? 'selected' : ''}>
+                        ORDER
+                    </option>
+                    <option value="SUBSCRIPTION" ${orderColumn == '' ? 'selected' : ''}>
+                        SUBSCRIPTION
+                    </option>
+                    <option value="READING_ROOM" ${orderColumn == '' ? 'selected' : ''}>
+                        READING_ROOM
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="container nowrap">
+            <div class="container text-center">
                 <p class="h6 mb-4"><fmt:message key="selection.form.sorting.title" bundle="${lang}"/></p>
             </div>
             <div class="container">
-                <label for="selectSorting"><fmt:message key="selection.form.sorting.byColumn"
-                                                        bundle="${lang}"/>:</label>
+                <label for="selectSorting"><fmt:message key="selection.form.sorting.byColumn" bundle="${lang}"/>:</label>
                 <select id="selectSorting" name="order">
                     <option ${orderColumn == '' ? 'selected' : ''} value>-</option>
-                    <option value="operation_status" ${orderColumn == 'BY_OPERATION_STATUS' ? 'selected' : ''}>
-                        <fmt:message key="operation.status" bundle="${lang}"/>
-                    </option>
-
                 </select>
             </div>
         </div>

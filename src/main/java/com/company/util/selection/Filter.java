@@ -61,7 +61,8 @@ public class Filter {
         NAME("books.name", "filterByName"),
         AUTHOR("books.author", "filterByAuthor"),
         EMAIL("email", "filterByEmail"),
-        USER_ID("user_id", "filterByUserId");
+        USER_ID("user_id", "filterByUserId"),
+        OPERATION_STATUS("book_operations.status", "filterByStatus");
 
         private final String columnName;
         private final String attributeValue;

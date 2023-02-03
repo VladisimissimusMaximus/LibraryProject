@@ -8,11 +8,11 @@ public enum Order {
     BY_OPERATION_STATUS("book_operations.status", "status");
 
     private final String columnName;
-    private final String urlAttributeValue;
+    private final String attributeValue;
 
     Order(String columnName, String urlParameterName) {
         this.columnName = columnName;
-        this.urlAttributeValue = urlParameterName;
+        this.attributeValue = urlParameterName;
     }
 
     public String applyToQuery(String query) {
@@ -20,6 +20,6 @@ public enum Order {
     }
 
     public String getAttributeValue() {
-        return urlAttributeValue;
+        return attributeValue;
     }
 }
