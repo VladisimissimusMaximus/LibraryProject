@@ -2,6 +2,7 @@ package com.company.util;
 
 import com.company.model.User;
 import com.company.util.exceptions.UserValidationException;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,9 +11,30 @@ import java.util.Objects;
 import static com.company.util.ValidationUtil.*;
 
 public class UserUtil {
+    private static final BasicPasswordEncryptor ENCRYPTOR = new BasicPasswordEncryptor();
+    private static final String NO_ENCRYPTION_PASSWORD_MARK = "${noop}";
 
-    public static boolean checkPasswordsEquals(String password, String password1) {
-        return Objects.equals(password, password1);
+    /**
+     * Checks whether the given {@code pass} is equal to {@code encryptedPass} param.
+     * If {@code encryptedPass} starts with '{noop}' notation passwords are being compared
+     * with {@code String.equals()}, otherwise encryptor's comparison is being used
+     * @param pass non-encrypted password
+     * @param encryptedPass encrypted password
+     * @return true if the passwords are equal, otherwise returns false
+     */
+    public static boolean checkPasswordsEquals(String pass, String encryptedPass) {
+        if (encryptedPass.startsWith(NO_ENCRYPTION_PASSWORD_MARK)) {
+            return encryptedPass.substring(NO_ENCRYPTION_PASSWORD_MARK.length()).equals(pass);
+        } else {
+            return ENCRYPTOR.checkPassword(pass, encryptedPass);
+        }
+    }
+
+    public static void prepareToSave(User user) {
+        String encryptedPassword = ENCRYPTOR.encryptPassword((user.getPassword()));
+
+        user.setPassword(encryptedPassword);
+        user.setEmail(user.getEmail().toLowerCase());
     }
 
     public static void validateEmail(User user) {

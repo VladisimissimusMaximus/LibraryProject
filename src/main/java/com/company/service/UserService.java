@@ -36,6 +36,8 @@ public class UserService {
         UserUtil.validateName(user);
         UserUtil.validatePassword(user);
 
+        UserUtil.prepareToSave(user);
+
         userDAO.insert(user);
     }
 

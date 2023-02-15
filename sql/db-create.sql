@@ -19,7 +19,7 @@ CREATE TABLE users
     id INT PRIMARY KEY auto_increment,
     name VARCHAR(20) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(50) NOT NULL,
     registered timestamp DEFAULT now() NOT NULL,
     enabled BOOLEAN DEFAULT TRUE,
     role_id INT  NOT NULL DEFAULT 1,
@@ -54,12 +54,12 @@ CREATE TABLE book_operations
 );
 
 
-INSERT INTO users VALUES (DEFAULT, 'reader', 'reader@g.com', '123', DEFAULT, DEFAULT, 1);
-INSERT INTO users VALUES (DEFAULT, 'admin', 'admin@g.com', '123', DEFAULT, DEFAULT, 3);
-INSERT INTO users VALUES (DEFAULT, 'librarian', 'librarian@g.com', '123', DEFAULT, DEFAULT, 2);
-INSERT INTO users VALUES (DEFAULT, 'test1', 'test1@g.com', '123', DEFAULT, DEFAULT, 1);
-INSERT INTO users VALUES (DEFAULT, 'test2', 'test2@g.com', '123', DEFAULT, DEFAULT, 2);
-INSERT INTO users VALUES (DEFAULT, 'test3', 'test3@g.com', '123', DEFAULT, DEFAULT, 3);
+INSERT INTO users VALUES (DEFAULT, 'reader', 'reader@g.com', '${noop}123', DEFAULT, DEFAULT, 1);
+INSERT INTO users VALUES (DEFAULT, 'admin', 'admin@g.com', '${noop}123', DEFAULT, DEFAULT, 3);
+INSERT INTO users VALUES (DEFAULT, 'librarian', 'librarian@g.com', '${noop}123', DEFAULT, DEFAULT, 2);
+INSERT INTO users VALUES (DEFAULT, 'test1', 'test1@g.com', '${noop}123', DEFAULT, DEFAULT, 1);
+INSERT INTO users VALUES (DEFAULT, 'test2', 'test2@g.com', '${noop}123', DEFAULT, DEFAULT, 2);
+INSERT INTO users VALUES (DEFAULT, 'test3', 'test3@g.com', '${noop}123', DEFAULT, DEFAULT, 3);
 
 INSERT INTO books VALUES (DEFAULT, 'Vocabulary', 'John Smith1', 'Enigma1', '2000-01-01', 1);
 INSERT INTO books VALUES (DEFAULT, 'Vocabulary1', 'John Smith2', 'Enigma2', '2000-01-01', 2);

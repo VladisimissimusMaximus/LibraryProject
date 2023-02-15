@@ -14,6 +14,9 @@
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.25</slf4j.version>
 
+        <!--ENCRYPTION-->
+        <jasypt.version>1.9.3</jasypt.version>
+
                     <!--Web-->
         <tomcat.version>9.0.37</tomcat.version>
 
@@ -45,6 +48,12 @@
             <artifactId>tomcat-servlet-api</artifactId>
             <version>${tomcat.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>${jasypt.version}</version>
         </dependency>
 
         <dependency>
