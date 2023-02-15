@@ -2,7 +2,6 @@ package com.company.dao;
 
 import com.company.model.User;
 import com.company.model.UserRole;
-import com.company.service.ConnectionManager;
 import com.company.util.exceptions.DAOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
+    private static volatile UserDAO INSTANCE;
     public static final String NAME_COL = "name";
     public static final String PASSWORD_COL = "password";
     public static final String ID_COL = "id";
@@ -23,6 +23,20 @@ public class UserDAO {
     public static final String EMAIL_COL = "email";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
+
+    private UserDAO() {
+    }
+
+    public static UserDAO getInstance() {
+        if (INSTANCE == null) {
+            synchronized (UserDAO.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new UserDAO();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     public List<User> findAll() {
 

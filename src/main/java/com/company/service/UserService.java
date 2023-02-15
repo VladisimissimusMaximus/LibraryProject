@@ -12,7 +12,7 @@ import java.util.List;
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public static final UserDAO userDAO = new UserDAO();
+    public static final UserDAO userDAO = UserDAO.getInstance();
 
     public List<User> getAllUsers(){
         return userDAO.findAll();

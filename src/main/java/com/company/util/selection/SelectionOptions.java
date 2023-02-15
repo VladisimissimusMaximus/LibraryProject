@@ -14,10 +14,6 @@ public class SelectionOptions {
     private Paging paging;
     private Filter filter;
 
-    public static SelectionOptions empty() {
-        return new SelectionOptions();
-    }
-
     public String applyToQuery(String query) {
         logger.info("start applying selection options to sql query '{}'", query);
         if (filter != null) {

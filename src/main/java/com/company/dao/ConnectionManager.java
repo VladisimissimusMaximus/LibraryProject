@@ -1,4 +1,4 @@
-package com.company.service;
+package com.company.dao;
 
 import com.company.util.exceptions.ConnectionException;
 import org.slf4j.Logger;

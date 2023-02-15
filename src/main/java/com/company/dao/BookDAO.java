@@ -1,6 +1,5 @@
 package com.company.dao;
 
-import com.company.service.ConnectionManager;
 import com.company.model.Book;
 import com.company.util.exceptions.DAOException;
 import com.company.util.selection.Filter;
