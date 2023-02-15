@@ -4,16 +4,16 @@
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
 
-<!--
+
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>C:\Users\Vlad\apache-tomcat-9.0.70\LibraryLogs.log</file>
+        <file>${CATALINA_HOME}\logs\Library.log</file>
 
         <encoder>
             <charset>UTF-8</charset>
             <pattern>%date %-5level %logger{50}.%M:%L - %msg%n</pattern>
         </encoder>
     </appender>
--->
+
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -26,5 +26,6 @@
 
     <root level="info">
         <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </root>
 </configuration>

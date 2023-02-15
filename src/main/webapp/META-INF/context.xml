@@ -41,7 +41,7 @@ Data source and connection pool configuration
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/librarydb"
               username="root"
-              password="admin"
+              password="Vladius92vvv"
               validationQuery="SELECT 1"
 
               defaultTransactionIsolation="READ_COMMITTED"
