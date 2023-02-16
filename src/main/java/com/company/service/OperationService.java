@@ -17,7 +17,7 @@ import java.util.List;
 public class OperationService {
     private static final Logger logger = LoggerFactory.getLogger(OperationService.class);
     public static final Integer DEFAULT_SUBSCRIPTION_COST_DOLLARS = 10;
-    private static final OperationDAO dao = new OperationDAO();
+    private static final OperationDAO dao = OperationDAO.getInstance();
 
     private static final Integer MINIMUM_DURATION_DAYS = 1;
 

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BookDAO {
+    private static volatile BookDAO INSTANCE;
     public static final String NAME_COL = "name";
     public static final String AUTHOR_COL = "author";
     public static final String PUBLISHER_COL = "publisher";
@@ -22,6 +23,19 @@ public class BookDAO {
     public static final String COUNT_COL = "count";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
+
+    private BookDAO(){}
+
+    public static BookDAO getInstance() {
+        if (INSTANCE == null) {
+            synchronized (BookDAO.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new BookDAO();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     public List<Book> findAll(SelectionOptions options) {
         LOGGER.info("getting all books with options {}", options);

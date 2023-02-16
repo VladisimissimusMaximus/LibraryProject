@@ -15,6 +15,7 @@ import java.util.Map;
 
 
 public class OperationDAO {
+    private static volatile OperationDAO INSTANCE;
     private static final String USER_ID_COL = "user_id";
     private static final String BOOK_ID_COL = "book_id";
     private static final String START_DATE_COL = "start_date";
@@ -22,6 +23,19 @@ public class OperationDAO {
     private static final String DURATION_COL = "duration_days";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAO.class);
+
+    private OperationDAO(){}
+
+    public static OperationDAO getInstance() {
+        if (INSTANCE == null) {
+            synchronized (OperationDAO.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new OperationDAO();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     public List<Operation> findAll(SelectionOptions options) {
         LOGGER.info("finding all operations");
