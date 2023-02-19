@@ -29,7 +29,7 @@ public class SubmitLoginCommand extends AbstractCommand {
             renewUserSession(req, user);
             resp.sendRedirect(Uri.HOME.toAbsolutePath(req.getContextPath()));
         } else {
-            logger.info("wrong passwords OR USER IS DISABLED: user password is " + user.getPassword() + " and provided " + password);
+            logger.warn("wrong passwords OR USER IS DISABLED: user password is " + user.getPassword() + " and provided " + password);
             req.setAttribute("errorCode", "error.wrongCredentials" );
             WebUtil.forward(req, resp, View.LOGIN);
         }

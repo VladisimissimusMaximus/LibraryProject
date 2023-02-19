@@ -3,6 +3,8 @@ package com.company.service;
 import com.company.dao.UserDAO;
 import com.company.model.User;
 import com.company.util.UserUtil;
+import com.company.util.exceptions.DAOException;
+import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.UserValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +40,7 @@ public class UserService {
 
         UserUtil.prepareToSave(user);
 
-        userDAO.insert(user);
+        UserUtil.handleDAOException(() -> userDAO.insert(user));
     }
 
     public void update(User user){

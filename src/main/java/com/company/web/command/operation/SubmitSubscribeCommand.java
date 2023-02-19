@@ -47,10 +47,11 @@ public class SubmitSubscribeCommand extends AbstractCommand {
             service.placeOrder(user, book, durationParam);
             resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()));
         } catch(OperationValidationException validationException) {
-//            logger.info("exception caught {} with code {}", validationException, validationException.getDurationValidation());
+            logger.warn("exception caught {} with code {}", validationException, validationException.getDurationValidation());
             req.setAttribute("duration", durationParam);
             req.setAttribute("cost", DEFAULT_SUBSCRIPTION_COST_DOLLARS);
             req.setAttribute("durationValidation", validationException.getDurationValidation());
+            req.setAttribute("errorCode", validationException.getDuplicationValidation());
             WebUtil.forward(req, resp, View.SUBSCRIBE);
         }
 

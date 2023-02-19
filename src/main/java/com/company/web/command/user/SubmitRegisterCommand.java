@@ -3,6 +3,7 @@ package com.company.web.command.user;
 import com.company.model.User;
 import com.company.service.UserService;
 import com.company.util.WebUtil;
+import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.UserValidationException;
 import com.company.web.Uri;
 import com.company.web.View;

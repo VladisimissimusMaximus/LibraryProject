@@ -1,6 +1,8 @@
 package com.company.util;
 
 import com.company.model.User;
+import com.company.util.exceptions.DAOException;
+import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.UserValidationException;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
@@ -23,6 +25,10 @@ public class UserUtil {
      * @return true if the passwords are equal, otherwise returns false
      */
     public static boolean checkPasswordsEquals(String pass, String encryptedPass) {
+        if (pass == null || "".equals(pass)) {
+            return false;
+        }
+
         if (encryptedPass.startsWith(NO_ENCRYPTION_PASSWORD_MARK)) {
             return encryptedPass.substring(NO_ENCRYPTION_PASSWORD_MARK.length()).equals(pass);
         } else {
@@ -35,6 +41,14 @@ public class UserUtil {
 
         user.setPassword(encryptedPassword);
         user.setEmail(user.getEmail().toLowerCase());
+    }
+
+    public static void handleDAOException(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (DuplicateFieldException e) {
+            throw UserValidationException.withEmailValidationCode("validation.email.duplicate");
+        }
     }
 
     public static void validateEmail(User user) {

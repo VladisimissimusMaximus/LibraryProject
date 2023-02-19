@@ -35,7 +35,7 @@ public class OperationService {
         operation.setStatus(OperationStatus.ORDER);
         operation.setDuration(duration);
 
-        dao.insertOperation(operation);
+        OperationUtil.handleDAOException(() -> dao.insertOperation(operation));
     }
 
     public void approveOrder(User user, Book book) {
@@ -65,7 +65,7 @@ public class OperationService {
         operation.setStatus(OperationStatus.READING_ROOM);
         operation.setDuration(duration);
 
-        dao.insertOperation(operation);
+        OperationUtil.handleDAOException(() -> dao.insertOperation(operation));
     }
 
     public void returnBook(User user, Book book) {
@@ -76,7 +76,7 @@ public class OperationService {
         operation.setBook(book);
         operation.setUser(user);
 
-        dao.delete(operation);
+        OperationUtil.handleDAOException(() -> dao.delete(operation));
     }
 
     public List<Operation> getAll(SelectionOptions options) {

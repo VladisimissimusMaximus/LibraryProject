@@ -22,6 +22,11 @@
 <c:set var="SUBSCRIPTION" value="SUBSCRIPTION" scope="request"/>
 <c:set var="SESSION_ROLE" value="${sessionScope.userRole}" scope="session"/>
 
+<c:choose>
+    <c:when test="${ empty errorCode }">
+        <c:set var="errorCode" value="${param.errorCode}" scope="request" />
+    </c:when>
+</c:choose>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

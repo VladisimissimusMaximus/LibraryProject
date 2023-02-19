@@ -23,7 +23,8 @@ CREATE TABLE users
     registered timestamp DEFAULT now() NOT NULL,
     enabled BOOLEAN DEFAULT TRUE,
     role_id INT  NOT NULL DEFAULT 1,
-    FOREIGN KEY (role_id) references user_roles (id) ON DELETE RESTRICT
+    FOREIGN KEY (role_id) references user_roles (id) ON DELETE RESTRICT,
+    CONSTRAINT user_uniqueness_constraint UNIQUE(email)
 
 );
 

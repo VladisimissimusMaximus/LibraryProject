@@ -92,7 +92,7 @@ public class OperationDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find all operations, cause: {}", e.getMessage());
-            throw new DAOException("Failed to find all operations", e);
+            throw DAOException.wrap(e, "Failed to find all operations");
         }
 
         return result;
@@ -139,7 +139,7 @@ public class OperationDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find operations with userId {}, cause: {}", userId, e.getMessage());
-            throw new DAOException("Failed to find operations with userId " + userId, e);
+            throw DAOException.wrap(e, "Failed to find operations with userId " + userId);
         }
 
         return result;
@@ -181,7 +181,7 @@ public class OperationDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find operations with bookId {}, cause: {}", bookId, e.getMessage());
-            throw new DAOException("Failed to find operations with bookId " + bookId, e);
+            throw DAOException.wrap(e, "Failed to find operations with bookId " + bookId);
         }
 
         return result;
@@ -223,7 +223,7 @@ public class OperationDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find operations with userId {}, cause: {}", userId, e.getMessage());
-            throw new DAOException("Failed to find operations with userId " + userId, e);
+            throw DAOException.wrap(e, "Failed to find operations with userId " + userId);
         }
 
         return result;
@@ -266,7 +266,7 @@ public class OperationDAO {
                     LOGGER.warn("Failed to insert operation `{}`, cause: {}", operation, e.getMessage());
                 }
             }
-            throw new DAOException("Failed to insert operation", e);
+            throw DAOException.wrap(e, "Failed to insert operation");
         } finally {
             if (con != null) {
                 try {
@@ -312,7 +312,7 @@ public class OperationDAO {
                     LOGGER.warn("Failed to delete operation `{}`, cause: {}", operation, e.getMessage());
                 }
             }
-            throw new DAOException("Failed to delete operation", e);
+            throw DAOException.wrap(e, "Failed to delete operation");
         }
 
         return successful;
@@ -335,7 +335,7 @@ public class OperationDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to update operation `{}`, cause: {}", operation, e.getMessage());
-            throw new DAOException("Failed to update operation", e);
+            throw DAOException.wrap(e, "Failed to update operation");
         }
         return successful;
     }
@@ -353,7 +353,8 @@ public class OperationDAO {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new DAOException("failed to find count of operations", e);
+            LOGGER.warn("failed to find count of operations, cause: {}", e.getMessage());
+            throw DAOException.wrap(e, "Failed to find count of operations");
         }
 
         return result;
@@ -382,7 +383,8 @@ public class OperationDAO {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new DAOException("failed to find count of operations", e);
+            LOGGER.warn("failed to find count of operations, cause: {}", e.getMessage());
+            throw DAOException.wrap(e, "Failed to find count of operations");
         }
 
         return result;

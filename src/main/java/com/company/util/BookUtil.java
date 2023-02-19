@@ -2,6 +2,8 @@ package com.company.util;
 
 import com.company.model.Book;
 import com.company.util.exceptions.BookValidationException;
+import com.company.util.exceptions.DuplicateFieldException;
+import com.company.util.exceptions.OperationValidationException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -61,6 +63,14 @@ public class BookUtil {
         }
         if(count < 0){
             throw BookValidationException.withCountValidationCode("validation.number.positive");
+        }
+    }
+
+    public static void handleDAOException(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (DuplicateFieldException e) {
+            throw BookValidationException.withDuplicationValidationCode("validation.book.duplicate");
         }
     }
 }

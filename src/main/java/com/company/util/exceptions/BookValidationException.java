@@ -7,9 +7,20 @@ public class BookValidationException extends RuntimeException {
     private String publisherValidation;
     private String publicationDateValidation;
     private String countValidation;
+    private String duplicationValidationCode;
 
     public BookValidationException() {
         authorValidation = nameValidation = publisherValidation = publicationDateValidation = "";
+    }
+
+    public static BookValidationException withDuplicationValidationCode(String duplicationValidationCode) {
+        BookValidationException exception = new BookValidationException();
+        exception.duplicationValidationCode = duplicationValidationCode;
+        return exception;
+    }
+
+    public String getDuplicationValidationCode() {
+        return duplicationValidationCode;
     }
 
     public String getNameValidation() {

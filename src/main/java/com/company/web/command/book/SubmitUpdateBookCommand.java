@@ -46,7 +46,10 @@ public class SubmitUpdateBookCommand extends AbstractCommand {
 
         } catch (BookValidationException e) {
             LOGGER.debug("message: error occurred updating book {} cause {}", bookId, e.getCause());
-            req.setAttribute("errorCode", "error.validationError");
+            String duplicationValidation = e.getDuplicationValidationCode();
+
+            req.setAttribute("errorCode",
+                    duplicationValidation == null ? "error.validationError" : duplicationValidation);
             req.setAttribute("nameValidation", e.getNameValidation());
             req.setAttribute("authorValidation", e.getAuthorValidation());
             req.setAttribute("publisherValidation", e.getPublisherValidation());

@@ -74,7 +74,7 @@ public class BookDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find all books, cause: {}", e.getMessage());
-            throw new DAOException("Failed to find all books " , e);
+            throw DAOException.wrap(e, "Failed to find all books");
         }
 
         return books;
@@ -109,8 +109,8 @@ public class BookDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.warn("Failed to find all books, cause: {}", e.getMessage());
-            throw new DAOException("Failed to find all books " , e);
+            LOGGER.warn("Failed to find all books by name {}, cause: {}", name, e.getMessage());
+            throw DAOException.wrap(e, "Failed to find all books by name " + name);
         }
 
         return books;
@@ -145,8 +145,8 @@ public class BookDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.warn("Failed to find all books, cause: {}", e.getMessage());
-            throw new DAOException("Failed to find all books " , e);
+            LOGGER.warn("Failed to find all books by author {}, cause: {}", author, e.getMessage());
+            throw DAOException.wrap(e, "Failed to find all books by author " + author);
         }
 
         return books;
@@ -181,7 +181,7 @@ public class BookDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find book with id {}, cause: {}", id, e.getMessage());
-            throw new DAOException("Failed to find book with id " + id, e);
+            throw DAOException.wrap(e, "Failed to find book with id " + id);
         }
 
         return result;
@@ -216,7 +216,7 @@ public class BookDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find book with name {}, cause: {}", name, e.getMessage());
-            throw new DAOException("Failed to find book with name " + name, e);
+            throw DAOException.wrap(e, "Failed to find book with name " + name);
         }
 
         return result;
@@ -239,7 +239,7 @@ public class BookDAO {
 
         } catch(SQLException e){
             LOGGER.warn("Failed to create book `{}`, cause: {}", book.getId(), e.getMessage());
-            throw new DAOException("Failed to create book", e);
+            throw DAOException.wrap(e, "Failed to create book");
         }
     }
 
@@ -253,9 +253,9 @@ public class BookDAO {
             successful = statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            //here must have been log
-            System.out.println("ERROR, can't delete book " + id +
-                    "reason: " + e.getMessage());
+            LOGGER.warn("Failed to delete book `{}`, cause: {}", id, e.getMessage());
+
+            throw DAOException.wrap(e, "Failed to delete book");
         }
 
         return successful;
@@ -281,7 +281,7 @@ public class BookDAO {
 
         } catch(SQLException e){
             LOGGER.warn("Failed to update book `{}`, cause: {}", book.getId(), e.getMessage());
-            throw new DAOException("Failed to update book", e);
+            throw DAOException.wrap(e, "Failed to update book");
         }
         return successful;
     }
@@ -297,7 +297,8 @@ public class BookDAO {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new DAOException("failed to find count of books", e);
+            LOGGER.warn("failed to find count of books, cause: {}", e.getMessage());
+            throw DAOException.wrap(e, "failed to find count of books");
         }
         LOGGER.info("count is {}", result);
         return result;
@@ -323,7 +324,8 @@ public class BookDAO {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new DAOException("failed to find count of books", e);
+            LOGGER.warn("failed to find count of books, cause: {}", e.getMessage());
+            throw DAOException.wrap(e, "failed to find count of books");
         }
         LOGGER.info("count is {}", result);
         return result;

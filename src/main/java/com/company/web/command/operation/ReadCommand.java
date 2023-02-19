@@ -4,6 +4,7 @@ import com.company.model.Book;
 import com.company.model.User;
 import com.company.service.OperationService;
 import com.company.util.WebUtil;
+import com.company.util.exceptions.OperationValidationException;
 import com.company.web.Uri;
 import com.company.web.command.AbstractCommand;
 import org.slf4j.Logger;
@@ -40,10 +41,13 @@ public class ReadCommand extends AbstractCommand {
         try {
             service.takeToReadingRoom(user, book);
             resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()));
-        } catch (Exception e) {
-            logger.error("error taking a book {} to reading room by user {}. Exception: {}", bookId, userId, e);
+        } catch (OperationValidationException validationException) {
+            logger.error("error taking a book {} to reading room by user {}. Exception: {}",
+                    bookId, userId, validationException);
+
+            String queryString = "?errorCode=" + validationException.getDuplicationValidation();
             //TODO add a proper exception handling in case a book was taken concurrently (DB exception)
-            resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()));
+            resp.sendRedirect(Uri.CATALOGUE.toAbsolutePath(req.getContextPath()) + queryString);
         }
 
 

@@ -27,15 +27,6 @@ public class BookService {
 
     public Book getByName(String name) {return dao.findByName(name);}
 
-    public void register(Book book) throws BookValidationException {
-        BookUtil.validateName(book);
-        BookUtil.validateAuthor(book);
-        BookUtil.validatePublisher(book);
-        BookUtil.validatePublicationDate(book);
-
-        dao.insert(book);
-    }
-
     public void update(Book book){
         BookUtil.validateName(book);
         BookUtil.validateAuthor(book);
@@ -43,8 +34,7 @@ public class BookService {
         BookUtil.validatePublicationDate(book);
         BookUtil.validateCount(book);
 
-
-        dao.update(book);
+        BookUtil.handleDAOException(() -> dao.update(book));
     }
 
     public void create(Book book) throws BookValidationException{
@@ -54,7 +44,7 @@ public class BookService {
         BookUtil.validatePublicationDate(book);
         BookUtil.validateCount(book);
 
-        dao.insert(book);
+        BookUtil.handleDAOException(() -> dao.insert(book));
     }
 
     public int getCount(Filter filter) {

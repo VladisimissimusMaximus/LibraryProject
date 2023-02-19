@@ -3,6 +3,7 @@ package com.company.dao;
 import com.company.model.User;
 import com.company.model.UserRole;
 import com.company.util.exceptions.DAOException;
+import com.company.util.exceptions.DuplicateFieldException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +72,7 @@ public class UserDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find users {}", e.getMessage());
-            throw new DAOException("Failed to find users" + e);
+            throw DAOException.wrap(e, "Failed to find users");
         }
 
         return users;
@@ -108,7 +109,7 @@ public class UserDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find user with id {}, cause: {}", id, e.getMessage());
-            throw new DAOException("Failed to find user with id " + id, e);
+            throw DAOException.wrap(e, "Failed to find user with id " + id);
         }
 
         return result;
@@ -145,7 +146,7 @@ public class UserDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to find user with email {}, cause: {}", email, e.getMessage());
-            throw new DAOException("Failed to find user with email " + email, e);
+            throw DAOException.wrap(e, "Failed to find user with email " + email);
         }
 
         return result;
@@ -171,7 +172,8 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             LOGGER.warn("Failed to create user `{}`, cause: {}", user.getEmail(), e.getMessage());
-            throw new DAOException("Failed to create user", e);
+
+            throw DAOException.wrap(e, "Failed to create user");
         }
     }
 
@@ -186,7 +188,7 @@ public class UserDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to delete user `{}`, cause: {}", id, e.getMessage());
-            throw new DAOException("Failed to delete user", e);
+            throw DAOException.wrap(e, "Failed to delete user");
         }
     }
 
@@ -209,7 +211,7 @@ public class UserDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to update user `{}`, cause: {}", user.getEmail(), e.getMessage());
-            throw new DAOException("Failed to update user", e);
+            throw DAOException.wrap(e, "Failed to update user");
         }
         return successful;
     }
@@ -229,7 +231,7 @@ public class UserDAO {
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to update user 'enabled' , cause: {}", e.getMessage());
-            throw new DAOException("Failed to update user 'enabled'", e);
+            throw DAOException.wrap(e, "Failed to update user 'enabled'");
         }
         return successful;
     }

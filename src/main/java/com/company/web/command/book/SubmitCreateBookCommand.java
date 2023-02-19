@@ -35,7 +35,10 @@ public class SubmitCreateBookCommand extends AbstractCommand {
 
         } catch (BookValidationException e) {
             logger.debug("message: error occurred while creating book {} cause {}", e, e.getCause());
-            req.setAttribute("errorCode", "error.validationError");
+            String duplicationValidation = e.getDuplicationValidationCode();
+
+            req.setAttribute("errorCode",
+                    duplicationValidation == null ? "error.validationError" : duplicationValidation);
             req.setAttribute("authorValidation", e.getAuthorValidation());
             req.setAttribute("nameValidation", e.getNameValidation());
             req.setAttribute("publisherValidation", e.getPublisherValidation());
