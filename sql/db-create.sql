@@ -79,10 +79,6 @@ INSERT INTO books VALUES (DEFAULT, 'Vocabulary355', 'John Smith4', 'Enigma4', '2
 INSERT INTO books VALUES (DEFAULT, 'Vocabulary356', 'John Smith4', 'Enigma4', '2000-01-01', 4);
 INSERT INTO books VALUES (DEFAULT, 'Vocabulary32', 'John Smith4', 'Enigma4', '2000-01-01', 4);
 
-INSERT INTO book_operations VALUES (1, 1, DEFAULT, 'order', 1);
-INSERT INTO book_operations VALUES (2, 2, DEFAULT, 'reading room', 2);
-INSERT INTO book_operations VALUES (3, 3, DEFAULT, 'subscription', 3);
-
 
 
 SELECT * FROM users;
