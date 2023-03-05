@@ -18,7 +18,7 @@ public class UserUtil {
 
     /**
      * Checks whether the given {@code pass} is equal to {@code encryptedPass} param.
-     * If {@code encryptedPass} starts with '{noop}' notation passwords are being compared
+     * If {@code encryptedPass} starts with '${noop}' notation passwords are being compared
      * with {@code String.equals()}, otherwise encryptor's comparison is being used
      * @param pass non-encrypted password
      * @param encryptedPass encrypted password
