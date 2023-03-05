@@ -3,6 +3,8 @@ package com.company.util.exceptions;
 import java.sql.SQLException;
 
 public class DAOException extends RuntimeException {
+    public DAOException() {
+    }
     protected DAOException(String message, Throwable cause) {
         super(message, cause);
     }

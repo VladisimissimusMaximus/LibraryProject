@@ -3,6 +3,7 @@ package com.company.web.command.operation;
 import com.company.model.Book;
 import com.company.model.User;
 import com.company.service.OperationService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.util.exceptions.OperationValidationException;
 import com.company.web.Uri;
@@ -17,7 +18,8 @@ import java.io.IOException;
 
 public class ReadCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(SubmitSubscribeCommand.class);
-    private static final OperationService service = new OperationService();
+    private static final OperationService service =
+            ApplicationContainer.getContainer().getOperationService();
     private Integer bookId;
     private Integer userId;
 

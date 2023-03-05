@@ -1,6 +1,7 @@
 package com.company.web.command.operation;
 
 import com.company.service.OperationService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
@@ -14,7 +15,8 @@ import java.io.IOException;
 
 public class ShowReaderOperationsCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(ShowReaderOperationsCommand.class);
-    private static final OperationService service = new OperationService();
+    private static final OperationService service =
+            ApplicationContainer.getContainer().getOperationService();
 
     private Integer userId;
 

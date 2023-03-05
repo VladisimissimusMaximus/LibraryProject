@@ -17,9 +17,13 @@ import java.util.List;
 public class OperationService {
     private static final Logger logger = LoggerFactory.getLogger(OperationService.class);
     public static final Integer DEFAULT_SUBSCRIPTION_COST_DOLLARS = 10;
-    private static final OperationDAO dao = OperationDAO.getInstance();
+    private final OperationDAO dao;
 
     private static final Integer MINIMUM_DURATION_DAYS = 1;
+
+    public OperationService(OperationDAO dao) {
+        this.dao = dao;
+    }
 
     public void placeOrder(User user, Book book, String durationParam) {
         logger.info("placing order on book {} for user {}", book.getId(), user.getId());

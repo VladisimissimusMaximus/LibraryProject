@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class DuplicateFieldException extends DAOException {
     private final Key key;
 
+    public DuplicateFieldException() {
+        this.key = null;
+    }
+
     public DuplicateFieldException(Throwable cause) {
         super("Duplication error!!!", cause);
         this.key = Key.parseKey(cause.getMessage());

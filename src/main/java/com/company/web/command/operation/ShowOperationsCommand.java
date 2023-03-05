@@ -1,6 +1,7 @@
 package com.company.web.command.operation;
 
 import com.company.service.OperationService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.util.selection.SelectionOptions;
 import com.company.web.View;
@@ -13,7 +14,8 @@ import java.io.IOException;
 
 public class ShowOperationsCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(ShowOperationsCommand.class);
-    private static final OperationService service = new OperationService();
+    private static final OperationService service =
+            ApplicationContainer.getContainer().getOperationService();
 
     @Override
     public void process() throws ServletException, IOException {
