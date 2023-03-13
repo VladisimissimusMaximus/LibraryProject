@@ -8,6 +8,7 @@ import com.company.model.User;
 import com.company.util.OperationUtil;
 import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.OperationValidationException;
+import jdk.jshell.JShell;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -108,6 +110,26 @@ public class OperationServiceTest {
     }
 
     @Test
+    void placeOrder_whenGivenUserAndBook_thenPassedOperationContainsTheSameOnes() {
+        // given
+        User user = new User();
+        user.setEmail("test@mail.com");
+        Book book = new Book();
+        book.setName("testories");
+
+        // when
+        when(mockDAO.insertOperation(any())).thenReturn(true);
+        service.placeOrder(user, book, Integer.toString(30));
+
+        // then
+        verify(mockDAO).insertOperation(operationCaptor.capture());
+
+        Operation actual = operationCaptor.getValue();
+        assertEquals(user, actual.getUser());
+        assertEquals(book, actual.getBook());
+    }
+
+    @Test
     public void placeOrder_whenDAOThrowsDuplicateException_thenWrapToServiceException() {
 
         // given
@@ -133,8 +155,34 @@ public class OperationServiceTest {
     }
 
     @Test
-    public void approveOrder() {
-        assertTrue(true);
+    public void approveOrder_whenDAOReturnsOperation_returnSameOne() {
+
+        //given
+        User user = new User();
+        user.setId(1);
+        Book book = new Book();
+        book.setId(1);
+        Operation operation = new Operation();
+        operation.setUser(user);
+        operation.setBook(book);
+        LocalDateTime dateTime = LocalDateTime.of(2022, 1, 1, 1, 1);
+        operation.setStartDate(dateTime);
+        operation.setStatus(OperationStatus.SUBSCRIPTION);
+
+        //when
+        when(mockDAO.update(any())).thenReturn(true);
+        service.approveOrder(user, book);
+
+        //then
+        verify(mockDAO).update(operationCaptor.capture());
+
+        Operation actual = operationCaptor.getValue();
+        actual.setStartDate(dateTime);
+        assertEquals(user, actual.getUser());
+        assertEquals(book, actual.getBook());
+        assertEquals(operation.getStatus(), actual.getStatus());
+        assertEquals(operation.getStartDate(), actual.getStartDate());
+
     }
 
     @Test
