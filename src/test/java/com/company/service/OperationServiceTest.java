@@ -5,10 +5,8 @@ import com.company.model.Book;
 import com.company.model.Operation;
 import com.company.model.OperationStatus;
 import com.company.model.User;
-import com.company.util.OperationUtil;
 import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.OperationValidationException;
-import jdk.jshell.JShell;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -186,12 +184,50 @@ public class OperationServiceTest {
     }
 
     @Test
-    public void takeToReadingRoom() {
-        assertTrue(true);
+    public void takeToReadingRoom_whenGivenUserAndBookAndDuration_thenPassedOperationContainsTheSameOnes() {
+        // given
+        User user = new User();
+        user.setEmail("test@mail.com");
+        Book book = new Book();
+        book.setName("testories");
+        int duration = 1;
+
+        // when
+        when(mockDAO.insertOperation(any())).thenReturn(true);
+        service.takeToReadingRoom(user, book);
+
+        // then
+        verify(mockDAO).insertOperation(operationCaptor.capture());
+
+        Operation actual = operationCaptor.getValue();
+        assertEquals(user, actual.getUser());
+        assertEquals(book, actual.getBook());
+        assertEquals(duration, actual.getDuration());
     }
 
     @Test
-    public void cancel() {
-        assertTrue(true);
+    public void takeToReadingRoom_whenDAOThrowsDuplicateException_thenWrapToServiceException() {
+
+        // given
+        DuplicateFieldException duplicateException = new DuplicateFieldException();
+        User user = new User();
+        Book book = new Book();
+        Operation operation = new Operation();
+
+        int duration = 1;
+        operation.setStatus(OperationStatus.ORDER);
+        operation.setDuration(duration);
+
+        String expectedCode = "validation.operation.duplicate";
+
+        // when
+        when(mockDAO.insertOperation(any())).thenThrow(duplicateException);
+
+        // then
+        OperationValidationException actual = assertThrows(OperationValidationException.class,
+                () -> service.takeToReadingRoom(user, book));
+        assertEquals(expectedCode, actual.getDuplicationValidation());
+
     }
+
 }
