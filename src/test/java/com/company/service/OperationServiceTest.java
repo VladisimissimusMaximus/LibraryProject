@@ -3,7 +3,9 @@ package com.company.service;
 import com.company.dao.OperationDAO;
 import com.company.model.Book;
 import com.company.model.Operation;
+import com.company.model.OperationStatus;
 import com.company.model.User;
+import com.company.util.OperationUtil;
 import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.OperationValidationException;
 import org.junit.jupiter.api.Test;
@@ -86,8 +88,48 @@ public class OperationServiceTest {
     }
 
     @Test
-    public void placeOrder() {
-        assertTrue(true);
+    public void getAllByUser_whenDAOReturnsList_returnTheSame_once(){
+        //given
+        User user = new User();
+        user.setId(1);
+        Operation op1 = new Operation();
+        Operation op2 = new Operation();
+        op1.setUser(user);
+        op2.setUser(user);
+        List<Operation> expected = List.of(op1, op2);
+
+        //when
+        when(mockDAO.findByUserId(user.getId())).thenReturn(expected);
+        List<Operation> actual = service.getAllByUser(user.getId());
+
+        //then
+        assertEquals(expected, actual);
+        verify(mockDAO, times(1)).findByUserId(user.getId());
+    }
+
+    @Test
+    public void placeOrder_whenDAOThrowsDuplicateException_thenWrapToServiceException() {
+
+        // given
+        DuplicateFieldException duplicateException = new DuplicateFieldException();
+        User user = new User();
+        Book book = new Book();
+        Operation operation = new Operation();
+
+        int duration = 30;
+        operation.setStatus(OperationStatus.ORDER);
+        operation.setDuration(duration);
+
+        String expectedCode = "validation.operation.duplicate";
+
+        // when
+        when(mockDAO.insertOperation(any())).thenThrow(duplicateException);
+
+        // then
+        OperationValidationException actual = assertThrows(OperationValidationException.class,
+                () -> service.placeOrder(user, book, "30"));
+        assertEquals(expectedCode, actual.getDuplicationValidation());
+
     }
 
     @Test
