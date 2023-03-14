@@ -2,6 +2,7 @@ package com.company.web.command.book;
 
 import com.company.model.Book;
 import com.company.service.BookService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.util.exceptions.BookValidationException;
 import com.company.web.Uri;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 
 public class SubmitCreateBookCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(SubmitCreateBookCommand.class);
-    private final BookService service = new BookService();
+    private final BookService service = ApplicationContainer.getContainer().getBookService();
 
 
     @Override

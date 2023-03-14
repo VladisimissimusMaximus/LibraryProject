@@ -1,6 +1,7 @@
 package com.company.web.command.book;
 
 import com.company.service.BookService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.util.selection.SelectionOptions;
 import com.company.web.View;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class ShowCatalogueCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(ShowCatalogueCommand.class);
 
-    private static final BookService service = new BookService();
+    private static final BookService service = ApplicationContainer.getContainer().getBookService();
 
     @Override
     public void process() throws ServletException, IOException {

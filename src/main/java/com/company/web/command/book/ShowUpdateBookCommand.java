@@ -2,6 +2,7 @@ package com.company.web.command.book;
 
 import com.company.model.Book;
 import com.company.service.BookService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
@@ -16,7 +17,7 @@ import java.io.IOException;
 public class ShowUpdateBookCommand extends AbstractCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShowUpdateBookCommand.class);
-    public static final BookService service = new BookService();
+    public static final BookService service = ApplicationContainer.getContainer().getBookService();
     private Integer bookId;
 
     @Override

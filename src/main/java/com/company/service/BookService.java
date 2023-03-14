@@ -11,7 +11,10 @@ import com.company.util.selection.SelectionOptions;
 import java.util.List;
 
 public class BookService {
-    public static final BookDAO dao = BookDAO.getInstance();
+    private final BookDAO dao;
+    public BookService(BookDAO dao){
+        this.dao = dao;
+    }
 
     public List<Book> getAll(SelectionOptions options){
         return dao.findAll(options);
