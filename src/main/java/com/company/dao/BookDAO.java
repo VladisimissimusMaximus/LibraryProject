@@ -223,7 +223,8 @@ public class BookDAO {
     }
 
 
-    public void insert(Book book) {
+    public boolean insert(Book book) {
+        boolean successful = false;
         LOGGER.info("creating new book with id `{}`", book.getId());
         String query = "INSERT INTO books (name, author, publisher, publication_date, count) VALUES (?, ?, ?, ?, ?)";
 
@@ -235,12 +236,13 @@ public class BookDAO {
             stmt.setString(3, book.getPublisher());
             stmt.setString(4, String.valueOf(book.getPublicationDate()));
             stmt.setInt(5, book.getCount());
-            stmt.executeUpdate();
+            successful = stmt.executeUpdate() > 0;
 
         } catch(SQLException e){
             LOGGER.warn("Failed to create book `{}`, cause: {}", book.getId(), e.getMessage());
             throw DAOException.wrap(e, "Failed to create book");
         }
+        return successful;
     }
 
     public boolean delete(int id) {
