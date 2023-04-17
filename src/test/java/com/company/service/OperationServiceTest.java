@@ -7,6 +7,7 @@ import com.company.model.OperationStatus;
 import com.company.model.User;
 import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.OperationValidationException;
+import com.company.util.selection.Filter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -47,6 +48,44 @@ public class OperationServiceTest {
 
         // then
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void getCount_whenDAOReturnsDigit_thenReturnTheSameOne() {
+        // given
+        int expected = 2;
+        Filter filter = new Filter("");
+
+        // when
+        when(mockDAO.findCount(filter)).thenReturn(expected);
+        int actual = service.getCount(filter);
+
+        // then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getCount_whenFilterIsNotNull_thenFindWithFilterIsInvoked() {
+        // given
+        Filter filter = new Filter("");
+
+        // when
+        when(mockDAO.findCount(filter)).thenReturn(0);
+        service.getCount(filter);
+
+        // then
+        verify(mockDAO, times(1)).findCount(filter);
+    }
+
+    @Test
+    void getCount_whenFilterIsNotNull_thenFindWithoutFilterIsInvoked() {
+
+        // when
+        when(mockDAO.findCount()).thenReturn(0);
+        service.getCount(null);
+
+        // then
+        verify(mockDAO, times(1)).findCount();
     }
 
     @Test

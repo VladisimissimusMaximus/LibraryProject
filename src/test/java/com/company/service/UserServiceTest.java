@@ -35,7 +35,7 @@ public class UserServiceTest {
     UserService service;
 
     @Test
-    public void getAllUsers_WhenDAOReturnsList_ServiceReturnsSame() {
+    public void getAllUsers_whenDAOReturnsList_ServiceReturnsSame() {
         // given
         User user1 = new User();
         user1.setName("a");
@@ -52,7 +52,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deleteById_WhenProvidedId_DAOReturnsSameOne() {
+    public void deleteById_whenProvidedId_DAOReturnsSameOne() {
         // given
         User user = new User();
         int id = 1;
@@ -70,7 +70,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getById_WhenProvidedUserId_DAOReturnsSameOne_Once() {
+    public void getById_whenProvidedUserId_DAOReturnsSameOne_Once() {
         //given
         User expected = new User();
         int id = 1;
@@ -86,7 +86,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getByEmail_WhenProvidedEmail_DAOReturnsSameOne_Once() {
+    public void getByEmail_whenProvidedEmail_DAOReturnsSameOne_Once() {
         //given
         User expected = new User();
         String email = "email@gmail.com";
@@ -102,7 +102,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void register_WhenProvidedUser_DAOReturnsSameOne() {
+    public void register_whenProvidedUser_DAOReturnsSameOne() {
         //given
         User expected = new User();
         expected.setId(1);
@@ -123,7 +123,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void update_WhenProvidedUserAndItValidates_DAOReturnsSameOne() {
+    public void update_whenProvidedUserAndItValidates_DAOReturnsSameOne() {
         //given
         User expected = new User();
         expected.setId(1);
@@ -144,5 +144,16 @@ public class UserServiceTest {
         verify(mockDAO, times(1)).update(expected);
     }
 
+    @Test
+    void updateEnabled_whenGivenParameters_passTheSameOnesToDAO() {
+        // given
+        Integer userId = 13;
+        boolean enabled = true;
 
+        // when
+        service.updateEnabled(userId, enabled);
+
+        // then
+        verify(mockDAO, times(1)).updateEnabled(userId, enabled);
+    }
 }
