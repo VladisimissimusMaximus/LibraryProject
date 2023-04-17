@@ -1,6 +1,7 @@
 package com.company.web.command.user;
 
 import com.company.service.UserService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.web.Uri;
 import com.company.web.command.AbstractCommand;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class DeleteUserCommand extends AbstractCommand {
     private Integer userId;
-    private static final UserService service = new UserService();
+    private static final UserService service = ApplicationContainer.getContainer().getUserService();
 
     @Override
     public void init(HttpServletRequest req, HttpServletResponse resp) {

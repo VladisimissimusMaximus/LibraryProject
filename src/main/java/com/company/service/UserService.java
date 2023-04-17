@@ -3,8 +3,6 @@ package com.company.service;
 import com.company.dao.UserDAO;
 import com.company.model.User;
 import com.company.util.UserUtil;
-import com.company.util.exceptions.DAOException;
-import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.UserValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,23 +12,27 @@ import java.util.List;
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public static final UserDAO userDAO = UserDAO.getInstance();
+    private final UserDAO dao;
+
+    public UserService(UserDAO dao) {
+        this.dao = dao;
+    }
 
     public List<User> getAllUsers(){
-        return userDAO.findAll();
+        return dao.findAll();
     }
 
     public void deleteById(Integer id){
-        userDAO.delete(id);
+        dao.delete(id);
     }
 
     public User getById(Integer id){
-        return userDAO.findById(id);
+        return dao.findById(id);
     }
 
     public User getByEmail(String email){
 
-        return userDAO.findByEmail(email);
+        return dao.findByEmail(email);
     }
 
     public void register(User user) throws UserValidationException {
@@ -40,19 +42,19 @@ public class UserService {
 
         UserUtil.prepareToSave(user);
 
-        UserUtil.handleDAOException(() -> userDAO.insert(user));
+        UserUtil.handleDAOException(() -> dao.insert(user));
     }
 
     public void update(User user){
         UserUtil.validateEmail(user);
         UserUtil.validateName(user);
 
-        userDAO.update(user);
+        dao.update(user);
     }
 
     public void updateEnabled(Integer userId, boolean enabled) {
         logger.info("setting 'enabled' to {} for user {}", enabled, userId);
-        userDAO.updateEnabled(userId, enabled);
+        dao.updateEnabled(userId, enabled);
     }
 
 }

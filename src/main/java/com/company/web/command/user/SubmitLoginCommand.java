@@ -2,6 +2,7 @@ package com.company.web.command.user;
 
 import com.company.model.User;
 import com.company.service.UserService;
+import com.company.util.ApplicationContainer;
 import com.company.util.UserUtil;
 import com.company.util.WebUtil;
 import com.company.web.Uri;
@@ -18,7 +19,7 @@ import static com.company.util.UserUtil.renewUserSession;
 
 public class SubmitLoginCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(FrontControllerServlet.class);
-    UserService service = new UserService();
+    private static final UserService service = ApplicationContainer.getContainer().getUserService();
 
     @Override
     public void process() throws ServletException, IOException {

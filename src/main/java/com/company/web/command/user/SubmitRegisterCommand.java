@@ -2,13 +2,12 @@ package com.company.web.command.user;
 
 import com.company.model.User;
 import com.company.service.UserService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
-import com.company.util.exceptions.DuplicateFieldException;
 import com.company.util.exceptions.UserValidationException;
 import com.company.web.Uri;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
-import com.company.web.FrontControllerServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,7 @@ import java.io.IOException;
 
 public class SubmitRegisterCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(SubmitRegisterCommand.class);
-    private final UserService service = new UserService();
+    private static final UserService service = ApplicationContainer.getContainer().getUserService();
 
     @Override
     public void process() throws ServletException, IOException {

@@ -3,6 +3,7 @@ package com.company.web.command.user;
 import com.company.model.User;
 import com.company.model.UserRole;
 import com.company.service.UserService;
+import com.company.util.ApplicationContainer;
 import com.company.util.UserUtil;
 import com.company.util.WebUtil;
 import com.company.util.exceptions.UserValidationException;
@@ -18,7 +19,7 @@ import java.io.IOException;
 
 public class SubmitProfileUpdateCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubmitProfileUpdateCommand.class);
-    private static final UserService service = new UserService();
+    private static final UserService service = ApplicationContainer.getContainer().getUserService();
     @Override
     public void process() throws ServletException, IOException {
         HttpSession session = req.getSession(false);

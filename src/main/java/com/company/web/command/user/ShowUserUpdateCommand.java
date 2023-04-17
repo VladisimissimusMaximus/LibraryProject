@@ -2,6 +2,7 @@ package com.company.web.command.user;
 
 import com.company.model.User;
 import com.company.service.UserService;
+import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
 import com.company.web.View;
 import com.company.web.command.AbstractCommand;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 public class ShowUserUpdateCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubmitUserUpdateCommand.class);
-    public static final UserService service = new UserService();
+    private static final UserService service = ApplicationContainer.getContainer().getUserService();
     private Integer userId;
 
 

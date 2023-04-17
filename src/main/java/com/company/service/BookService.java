@@ -5,7 +5,6 @@ import com.company.model.Book;
 import com.company.util.BookUtil;
 import com.company.util.exceptions.BookValidationException;
 import com.company.util.selection.Filter;
-import com.company.util.selection.Paging;
 import com.company.util.selection.SelectionOptions;
 
 import java.util.List;
