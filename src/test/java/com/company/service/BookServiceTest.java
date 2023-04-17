@@ -72,7 +72,7 @@ public class BookServiceTest {
         //given
         Book expected = new Book();
         int id = 1;
-        expected.setId(1);
+        expected.setId(id);
 
         //when
         when(mockDAO.findById(id)).thenReturn(expected);

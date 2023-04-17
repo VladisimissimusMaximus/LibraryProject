@@ -152,8 +152,9 @@ public class UserDAO {
         return result;
     }
 
-    public void insert(User user) {
+    public boolean insert(User user) {
         LOGGER.info("creating new user with email `{}`", user.getEmail());
+        boolean successful = false;
         ResultSet resultSet = null;
 
         String query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
@@ -164,7 +165,7 @@ public class UserDAO {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
-            if (stmt.executeUpdate() == 1) {
+            if (successful = stmt.executeUpdate() > 0) {
                 resultSet = stmt.getGeneratedKeys();
                 if (resultSet.next()) {
                     user.setId(resultSet.getInt(1));
@@ -175,21 +176,24 @@ public class UserDAO {
 
             throw DAOException.wrap(e, "Failed to create user");
         }
+        return successful;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         LOGGER.info("deleting user by id {}", id);
+        boolean successful = false;
         String query = "DELETE FROM users WHERE id = ?";
         try (Connection con = ConnectionManager.getConnection();
              PreparedStatement statement = con.prepareStatement(query);
         ) {
             statement.setInt(1, id);
-            statement.executeUpdate();
+            successful = statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.warn("Failed to delete user `{}`, cause: {}", id, e.getMessage());
             throw DAOException.wrap(e, "Failed to delete user");
         }
+        return successful;
     }
 
     public boolean update(User user) {
