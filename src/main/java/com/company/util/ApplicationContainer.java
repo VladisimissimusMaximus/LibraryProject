@@ -14,25 +14,22 @@ public class ApplicationContainer {
 
     //Operation
     private static final OperationDAO OPERATION_DAO = OperationDAO.getInstance();
-    private static final OperationService OPERATION_SERVICE =
-            new OperationService(OPERATION_DAO);
+    private static final OperationService OPERATION_SERVICE = new OperationService(OPERATION_DAO);
 
     //User
     public static final UserDAO USER_DAO = UserDAO.getInstance();
     public static final UserService USER_SERVICE = new UserService(USER_DAO);
 
-    // it's non static to be able to mock this method
-    public BookService getBookService(){
-        return BOOK_SERVICE;}
+    public static BookService getBookService(){
+        return BOOK_SERVICE;
+    }
 
     public static OperationService getOperationService() {
         return OPERATION_SERVICE;
     }
 
-    public UserService getUserService(){return USER_SERVICE;}
-
-    public static ApplicationContainer getContainer() {
-        return new ApplicationContainer();
+    public static UserService getUserService(){
+        return USER_SERVICE;
     }
 
 }

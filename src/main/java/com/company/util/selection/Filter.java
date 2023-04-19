@@ -1,5 +1,7 @@
 package com.company.util.selection;
 
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,14 +18,14 @@ public class Filter {
         if (queryString == null) return false;
 
         return Arrays.stream(FilterColumn.values())
-                .anyMatch(filterColumn -> queryString.contains(filterColumn.attributeValue));
+                .anyMatch(filterColumn -> queryString.contains(filterColumn.parameterName));
     }
 
     private void init(String string) {
         StringTokenizer tokenizer = new StringTokenizer(string, "&");
 
         while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken().replaceAll("[+]", " ");
+            String token = URLDecoder.decode(tokenizer.nextToken(), Charset.defaultCharset());
 
             int startIndex = token.indexOf("=");
             if (startIndex == -1) continue;
@@ -65,25 +67,29 @@ public class Filter {
         OPERATION_STATUS("book_operations.status", "filterByStatus");
 
         private final String columnName;
-        private final String attributeValue;
+        private final String parameterName;
 
-        FilterColumn(String columnName, String attributeValue) {
+        FilterColumn(String columnName, String parameterName) {
             this.columnName = columnName;
-            this.attributeValue = attributeValue;
+            this.parameterName = parameterName;
         }
 
         private static FilterColumn toFilterColumn(String keyValueParameterPair) {
             String parameterName = keyValueParameterPair.substring(0, keyValueParameterPair.indexOf("="));
             return Arrays.stream(FilterColumn.values())
                     .filter(filterColumn ->
-                            filterColumn.getAttributeValue()
+                            filterColumn.getParameterName()
                                     .equalsIgnoreCase(parameterName))
                     .findAny()
                     .orElse(null);
         }
 
-        public String getAttributeValue() {
-            return attributeValue;
+        public String getParameterName() {
+            return parameterName;
+        }
+
+        public String getColumnName() {
+            return columnName;
         }
     }
 }

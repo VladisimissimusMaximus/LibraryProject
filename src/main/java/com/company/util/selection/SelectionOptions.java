@@ -22,7 +22,7 @@ public class SelectionOptions {
         if (order != null) {
             query = order.applyToQuery(query);
         }
-        if(paging!=null) {
+        if (paging != null) {
             query = paging.applyToQuery(query);
         }
         logger.info("finished applying selection options, the result is '{}'", query);

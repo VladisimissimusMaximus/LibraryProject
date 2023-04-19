@@ -5,7 +5,6 @@ import com.company.util.selection.Order;
 import com.company.util.selection.Paging;
 import com.company.util.selection.SelectionOptions;
 import com.company.web.Resource;
-import com.company.web.Uri;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,7 +72,7 @@ public final class WebUtil {
         if (filter != null) {
             filter.getColumnValueMap()
                     .forEach((column, value) -> req.setAttribute(
-                            column.getAttributeValue(), value
+                            column.getParameterName(), value
                     ));
         }
     }
