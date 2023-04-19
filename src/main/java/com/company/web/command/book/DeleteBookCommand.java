@@ -15,8 +15,9 @@ import java.io.IOException;
 
 public class DeleteBookCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(DeleteBookCommand.class);
-    private static final BookService service = ApplicationContainer.getBookService();
-    private Integer bookId;
+    public BookService service = ApplicationContainer.getBookService();
+    public Integer bookId;
+
 
     @Override
     public void init(HttpServletRequest req, HttpServletResponse res) {
