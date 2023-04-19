@@ -22,7 +22,7 @@ import static com.company.service.OperationService.DEFAULT_SUBSCRIPTION_COST_DOL
 public class SubmitSubscribeCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(SubmitSubscribeCommand.class);
     private static final OperationService service =
-            ApplicationContainer.getContainer().getOperationService();
+            ApplicationContainer.getOperationService();
     private Integer bookId;
     private Integer userId;
 

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ShowUsersCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShowUsersCommand.class);
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
     @Override
     public void process() throws ServletException, IOException {
         LOGGER.info("Starting show users");

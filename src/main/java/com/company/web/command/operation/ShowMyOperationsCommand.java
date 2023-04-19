@@ -16,7 +16,7 @@ import java.io.IOException;
 public class ShowMyOperationsCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(ShowMyOperationsCommand.class);
     private static final OperationService service =
-            ApplicationContainer.getContainer().getOperationService();
+            ApplicationContainer.getOperationService();
     private Integer userId;
 
     @Override

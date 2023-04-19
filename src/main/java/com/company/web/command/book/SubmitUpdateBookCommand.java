@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 public class SubmitUpdateBookCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubmitUpdateBookCommand.class);
-    private static final BookService service = ApplicationContainer.getContainer().getBookService();
+    private static final BookService service = ApplicationContainer.getBookService();
     private Integer bookId;
 
     @Override

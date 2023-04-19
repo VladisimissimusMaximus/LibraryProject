@@ -18,7 +18,7 @@ import java.io.IOException;
 public class ApproveOrderCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(ApproveOrderCommand.class);
     private static final OperationService service =
-            ApplicationContainer.getContainer().getOperationService();
+            ApplicationContainer.getOperationService();
     private Integer bookId;
     private Integer userId;
 

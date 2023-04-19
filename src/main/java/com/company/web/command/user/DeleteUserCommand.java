@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class DeleteUserCommand extends AbstractCommand {
     private Integer userId;
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
 
     @Override
     public void init(HttpServletRequest req, HttpServletResponse resp) {

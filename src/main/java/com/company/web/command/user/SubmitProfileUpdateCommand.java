@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class SubmitProfileUpdateCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubmitProfileUpdateCommand.class);
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
     @Override
     public void process() throws ServletException, IOException {
         HttpSession session = req.getSession(false);

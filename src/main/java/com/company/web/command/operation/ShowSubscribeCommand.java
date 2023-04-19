@@ -18,7 +18,7 @@ import static com.company.service.OperationService.DEFAULT_SUBSCRIPTION_COST_DOL
 
 public class ShowSubscribeCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(ShowSubscribeCommand.class);
-    private static final BookService bookService = ApplicationContainer.getContainer().getBookService();
+    private static final BookService bookService = ApplicationContainer.getBookService();
 
     private Integer bookId;
 

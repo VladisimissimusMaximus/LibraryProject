@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ShowOperationsCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(ShowOperationsCommand.class);
     private static final OperationService service =
-            ApplicationContainer.getContainer().getOperationService();
+            ApplicationContainer.getOperationService();
 
     @Override
     public void process() throws ServletException, IOException {

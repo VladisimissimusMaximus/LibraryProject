@@ -18,7 +18,7 @@ import java.io.IOException;
 public class ReturnBookCommand extends AbstractCommand {
     public static final Logger logger = LoggerFactory.getLogger(ReturnBookCommand.class);
     private static final OperationService service =
-            ApplicationContainer.getContainer().getOperationService();
+            ApplicationContainer.getOperationService();
     private Integer bookId;
     private Integer userId;
 

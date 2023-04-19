@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ShowCatalogueCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(ShowCatalogueCommand.class);
 
-    private static final BookService service = ApplicationContainer.getContainer().getBookService();
+    public BookService service = ApplicationContainer.getBookService();
 
     @Override
     public void process() throws ServletException, IOException {

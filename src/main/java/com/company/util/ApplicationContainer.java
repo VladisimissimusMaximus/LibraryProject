@@ -25,7 +25,7 @@ public class ApplicationContainer {
     public BookService getBookService(){
         return BOOK_SERVICE;}
 
-    public OperationService getOperationService() {
+    public static OperationService getOperationService() {
         return OPERATION_SERVICE;
     }
 

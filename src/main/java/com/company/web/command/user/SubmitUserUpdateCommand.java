@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class SubmitUserUpdateCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubmitProfileUpdateCommand.class);
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
     private Integer userId;
 
     @Override

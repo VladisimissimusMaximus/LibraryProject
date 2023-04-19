@@ -17,7 +17,7 @@ import java.io.IOException;
 public class ShowUpdateBookCommand extends AbstractCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShowUpdateBookCommand.class);
-    public static final BookService service = ApplicationContainer.getContainer().getBookService();
+    public static final BookService service = ApplicationContainer.getBookService();
     private Integer bookId;
 
     @Override

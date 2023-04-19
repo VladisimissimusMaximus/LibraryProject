@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class SubmitRegisterCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(SubmitRegisterCommand.class);
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
 
     @Override
     public void process() throws ServletException, IOException {

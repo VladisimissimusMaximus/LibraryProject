@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 public class SubmitCreateBookCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(SubmitCreateBookCommand.class);
-    private final BookService service = ApplicationContainer.getContainer().getBookService();
+    private final BookService service = ApplicationContainer.getBookService();
 
 
     @Override

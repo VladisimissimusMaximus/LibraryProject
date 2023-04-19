@@ -19,7 +19,7 @@ import static com.company.util.UserUtil.renewUserSession;
 
 public class SubmitLoginCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(FrontControllerServlet.class);
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
 
     @Override
     public void process() throws ServletException, IOException {

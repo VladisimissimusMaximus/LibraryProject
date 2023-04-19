@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class SubmitEnableCommand extends AbstractCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubmitEnableCommand.class);
-    private static final UserService service = ApplicationContainer.getContainer().getUserService();
+    private static final UserService service = ApplicationContainer.getUserService();
     private Integer userId;
 
 
