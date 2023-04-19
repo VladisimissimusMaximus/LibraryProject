@@ -32,7 +32,7 @@ class DeleteBookCommandTest {
 
     @Test
     void init_whenProvidedID_thenInitializeFieldWithSameOne(){
-        //before
+        // given
         int expectedId = 1;
 
         //when

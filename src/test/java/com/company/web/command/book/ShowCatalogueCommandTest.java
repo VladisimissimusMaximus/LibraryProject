@@ -33,9 +33,6 @@ class ShowCatalogueCommandTest {
     @Mock
     HttpServletRequest req;
 
-    @Mock
-    HttpServletResponse res;
-
     @InjectMocks
     ShowCatalogueCommand command;
 
