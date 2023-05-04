@@ -19,14 +19,14 @@
                 <label for="filterByStatus"><fmt:message key="operation.status"
                                                         bundle="${lang}"/>:</label>
                 <select id="filterByStatus" name="filterByStatus">
-                    <option ${orderColumn == '' ? 'selected' : ''} value>-</option>
-                    <option value="ORDER" ${orderColumn == '' ? 'selected' : ''}>
+                    <option ${param.filterByStatus == '' ? 'selected' : ''} value>-</option>
+                    <option value="ORDER" ${param.filterByStatus == 'ORDER' ? 'selected' : ''}>
                         ORDER
                     </option>
-                    <option value="SUBSCRIPTION" ${orderColumn == '' ? 'selected' : ''}>
+                    <option value="SUBSCRIPTION" ${param.filterByStatus == 'SUBSCRIPTION' ? 'selected' : ''}>
                         SUBSCRIPTION
                     </option>
-                    <option value="READING_ROOM" ${orderColumn == '' ? 'selected' : ''}>
+                    <option value="READING_ROOM" ${param.filterByStatus == 'READING_ROOM' ? 'selected' : ''}>
                         READING_ROOM
                     </option>
                 </select>
@@ -39,7 +39,7 @@
             <div class="container">
                 <label for="selectSorting"><fmt:message key="selection.form.sorting.byColumn" bundle="${lang}"/>:</label>
                 <select id="selectSorting" name="order">
-                    <option ${orderColumn == '' ? 'selected' : ''} value>-</option>
+                    <option ${order == '' ? 'selected' : ''} value>-</option>
                 </select>
             </div>
         </div>
@@ -147,14 +147,14 @@
             <div class="container d-flex justify-content-between">
                 <div class="container text-center">
                     <c:if test="${currentPage > 1}">
-                        <a href="operation?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}"><--</a>
+                        <a href="operations?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${order}&filterByStatus=${param.filterByStatus}"><--</a>
                     </c:if>
                     <c:forEach begin="1" end="${pagesTotal}" varStatus="pages">
                         <a class="mr-1 ${currentPage == pages.index ? 'btm-xsm-red' : ''}"
-                           href="operation?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}">${pages.index}</a>
+                           href="operations?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${order}&filterByStatus=${param.filterByStatus}">${pages.index}</a>
                     </c:forEach>
                     <c:if test="${currentPage < pagesTotal}">
-                        <a href="operation?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}">--></a>
+                        <a href="operations?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${order}&filterByStatus=${param.filterByStatus}">--></a>
                     </c:if>
                 </div>
             </div>

@@ -27,6 +27,9 @@ public class ShowCatalogueCommand extends AbstractCommand {
         WebUtil.appendWithSelectionAttributes(req, selectionOptions, totalRecordsCount);
 
         req.setAttribute("books", service.getAll(selectionOptions));
+        if(selectionOptions.getOrder() != null) {
+            req.setAttribute("order", selectionOptions.getOrder().getAttributeName());
+        }
         WebUtil.forward(req, resp, View.CATALOGUE);
     }
 

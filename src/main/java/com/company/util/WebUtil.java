@@ -65,7 +65,7 @@ public final class WebUtil {
 
         Order order = options.getOrder();
         if (order != null) {
-            req.setAttribute("order", order.getAttributeValue());
+            req.setAttribute("order", order.getAttributeName());
         }
 
         Filter filter = options.getFilter();

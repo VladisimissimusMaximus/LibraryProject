@@ -36,17 +36,17 @@
                 <label for="selectSorting"><fmt:message key="selection.form.sorting.byColumn"
                                                         bundle="${lang}"/>:</label>
                 <select id="selectSorting" name="order">
-                    <option ${orderColumn == '' ? 'selected' : ''} value>-</option>
-                    <option value="title" ${orderColumn == 'BY_BOOK_TITLE' ? 'selected' : ''}>
+                    <option ${order == '' ? 'selected' : ''} value>-</option>
+                    <option value="title" ${order == 'title' ? 'selected' : ''}>
                         <fmt:message key="book.title" bundle="${lang}"/>
                     </option>
-                    <option value="author" ${orderColumn == 'BY_BOOK_AUTHOR' ? 'selected' : ''}>
+                    <option value="author" ${order == 'author' ? 'selected' : ''}>
                         <fmt:message key="book.author" bundle="${lang}"/>
                     </option>
-                    <option value="publisher" ${orderColumn == 'BY_BOOK_PUBLISHER' ? 'selected' : ''}>
+                    <option value="publisher" ${order == 'publisher' ? 'selected' : ''}>
                         <fmt:message key="book.publisher" bundle="${lang}"/>
                     </option>
-                    <option value="publicationDate" ${orderColumn == 'BY_BOOK_PUBLICATION_DATE' ? 'selected' : ''}>
+                    <option value="publicationDate" ${order == 'publicationDate' ? 'selected' : ''}>
                         <fmt:message key="book.publicationDate" bundle="${lang}"/>
                     </option>
 
@@ -153,14 +153,14 @@
 
                 <div class="container text-center" >
                     <c:if test="${currentPage > 1}">
-                        <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}"><--</a>
+                        <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${order}"><--</a>
                     </c:if>
                     <c:forEach begin="1" end="${pagesTotal}" varStatus="pages">
                         <a class="mr-1 ${currentPage == pages.index ? 'btm-xsm-red' : ''}"
-                           href="catalogue?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}">${pages.index}</a>
+                           href="catalogue?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${order}">${pages.index}</a>
                     </c:forEach>
                     <c:if test="${currentPage < pagesTotal}">
-                        <a href="catalogue?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${orderColumn}">--></a>
+                        <a href="catalogue?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${order}">--></a>
                     </c:if>
                 </div>
 

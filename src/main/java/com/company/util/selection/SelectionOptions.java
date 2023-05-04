@@ -75,7 +75,7 @@ public class SelectionOptions {
             if (orderParam != null) {
                 SelectionOptions.this.order = Arrays.stream(Order.values())
                         .filter(orderInstance ->
-                                orderInstance.getAttributeValue()
+                                orderInstance.getAttributeName()
                                         .equalsIgnoreCase(orderParam)
                         )
                         .findAny()

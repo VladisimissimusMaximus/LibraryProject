@@ -7,6 +7,7 @@ public abstract class AbstractCommand implements Command {
     protected HttpServletRequest req;
     protected HttpServletResponse resp;
 
+    @Override
     public void init(HttpServletRequest req, HttpServletResponse res) {
         this.req = req;
         this.resp = res;
