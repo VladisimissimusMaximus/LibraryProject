@@ -153,14 +153,14 @@
 
                 <div class="container text-center" >
                     <c:if test="${currentPage > 1}">
-                        <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${order}"><--</a>
+                        <a href="catalogue?pageNumber=${currentPage - 1}&recordsPerPage=${param.recordsPerPage}&order=${order}&filterByAuthor=${filterByAuthor}&filterByName=${filterByName}"><--</a>
                     </c:if>
                     <c:forEach begin="1" end="${pagesTotal}" varStatus="pages">
                         <a class="mr-1 ${currentPage == pages.index ? 'btm-xsm-red' : ''}"
-                           href="catalogue?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${order}">${pages.index}</a>
+                           href="catalogue?pageNumber=${pages.index}&recordsPerPage=${param.recordsPerPage}&order=${order}&filterByAuthor=${filterByAuthor}&filterByName=${filterByName}">${pages.index}</a>
                     </c:forEach>
                     <c:if test="${currentPage < pagesTotal}">
-                        <a href="catalogue?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${order}">--></a>
+                        <a href="catalogue?pageNumber=${currentPage + 1}&recordsPerPage=${param.recordsPerPage}&order=${order}&filterByAuthor=${filterByAuthor}&filterByName=${filterByName}">--></a>
                     </c:if>
                 </div>
 

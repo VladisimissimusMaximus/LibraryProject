@@ -1,5 +1,6 @@
 package com.company.web.command.book;
 
+import com.company.model.Book;
 import com.company.service.BookService;
 import com.company.util.ApplicationContainer;
 import com.company.util.WebUtil;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.util.List;
 
 public class ShowCatalogueCommand extends AbstractCommand {
     private static final Logger logger = LoggerFactory.getLogger(ShowCatalogueCommand.class);
@@ -22,14 +24,14 @@ public class ShowCatalogueCommand extends AbstractCommand {
         logger.info("Start getting all books");
 
         SelectionOptions selectionOptions = WebUtil.parseSelectionOptions(req);
+
+        List<Book> result = service.getAll(selectionOptions);
+
+        req.setAttribute("books", result);
+
         int totalRecordsCount = service.getCount(selectionOptions.getFilter());
 
         WebUtil.appendWithSelectionAttributes(req, selectionOptions, totalRecordsCount);
-
-        req.setAttribute("books", service.getAll(selectionOptions));
-        if(selectionOptions.getOrder() != null) {
-            req.setAttribute("order", selectionOptions.getOrder().getAttributeName());
-        }
         WebUtil.forward(req, resp, View.CATALOGUE);
     }
 
